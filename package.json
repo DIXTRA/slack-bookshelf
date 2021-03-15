@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=slack-bookshelf:* nodemon ./bin/www"
+    "start": "DEBUG=slack-bookshelf:* nodemon app.js"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "morgan": "~1.9.1",
     "sequelize": "^6.5.0"
