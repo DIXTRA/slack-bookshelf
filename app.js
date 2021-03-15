@@ -1,23 +1,24 @@
 require('dotenv').config();
+
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const debug = require('debug')('slack-bookshelf:server');
 
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const appRouter = require('./src/routes');
+const router = require('./src/routes');
 
-let app = express();
+const app = express();
 
-// configure middlewares
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); // support json encoded bodies
+app.use(express.urlencoded({ extended: false })); // support encoded bodies
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // configure routers
-app.use('/', appRouter);
+app.use('/', router);
 
 // start app
 const port = process.env.PORT || 3000;

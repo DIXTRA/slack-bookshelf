@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a91b7f47-e6c4-47bf-b598-80cab3f1dde8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/.keep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/.keep" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/users.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +52,7 @@
       <workItem from="1615488357243" duration="643000" />
       <workItem from="1615554838026" duration="1253000" />
       <workItem from="1615681124168" duration="4427000" />
+      <workItem from="1615820966181" duration="501000" />
     </task>
     <servers />
   </component>
@@ -68,6 +67,14 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="456" y="256" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1615687428271" />
+    <state x="144" y="76" key="MergeDialog" timestamp="1615821120322">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="144" y="76" key="MergeDialog/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1615821120322" />
+    <state x="358" y="215" key="MultipleFileMergeDialog" timestamp="1615821120389">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="358" y="215" key="MultipleFileMergeDialog/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1615821120389" />
     <state x="420" y="205" width="599" height="490" key="find.popup" timestamp="1615686209993">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
