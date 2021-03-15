@@ -21,7 +21,7 @@ services:
     tty: true
     volumes:
       - ./:/usr/src/app
-      - /usr/src/app/node_modules # Remove this if you have pure JS dependencies
+      - /usr/src/app/node_modules
   ngrok:
     image: shkoliar/ngrok:latest
     ports:
