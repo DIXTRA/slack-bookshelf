@@ -2,9 +2,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const debug = require('debug')('slack-bookshelf:server');
 
-const indexRouter = require('./src/routes/index');
-const usersRouter = require('./src/routes/users');
+const router = require('./src/routes');
 
 const app = express();
 
@@ -15,7 +15,12 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// configure routers
+app.use('/', router);
 
-module.exports = app;
+// start app
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  debug('listening on port ' + port);
+});
