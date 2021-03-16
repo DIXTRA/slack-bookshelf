@@ -3,7 +3,7 @@
  */
 function plainText(text) {
   return {
-    type: "plain_text",
+    type: 'plain_text',
     emoji: true,
     text,
   };

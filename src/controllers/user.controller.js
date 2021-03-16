@@ -1,4 +1,4 @@
-const commonViews = require("../views/common.views");
+const commonViews = require('../views/common.views');
 
 function addPost(req, res) {
   /*
@@ -10,14 +10,14 @@ function addPost(req, res) {
     * Asigno a user
   
 */
-  res.send("Adding post to collection");
+  res.send('Adding post to collection');
 }
 
 /*
   Demo list posts
 */
 function getPosts(req, res) {
-  const posts = ["post1", "post2"];
+  const posts = ['post1', 'post2'];
   // res.send(`Listing ${req.user} posts`);
   res.json(commonViews.listPosts(posts));
 }

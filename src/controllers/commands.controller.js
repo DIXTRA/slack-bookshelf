@@ -1,5 +1,4 @@
-const userController = require("./user.controller");
-
+const userController = require('./user.controller');
 
 /*
   Mover esto a algun constants en el futuro
@@ -11,7 +10,6 @@ const COMMANDS = {
 
 const COMMAND_NAMES = Object.keys(COMMANDS);
 
-
 function runCommand(req, res) {
   const command = req.body.text;
 
@@ -19,8 +17,7 @@ function runCommand(req, res) {
     console.log(`running '${command}'`);
     COMMANDS[command](req, res);
     // res.success();
-  } else res.error("Command not found");
+  } else res.error('Command not found');
 }
 
 module.exports = { runCommand };
-

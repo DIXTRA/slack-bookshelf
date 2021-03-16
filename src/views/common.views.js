@@ -1,4 +1,4 @@
-const blocks = require("./blocks.views");
+const blocks = require('./blocks.views');
 
 /*
   Demo de mensaje de error 
@@ -6,11 +6,11 @@ const blocks = require("./blocks.views");
 function commandError(message) {
   return blocks.base([
     {
-      type: "header",
-      text: blocks.plainText("Oops!"),
+      type: 'header',
+      text: blocks.plainText('Oops!'),
     },
     {
-      type: "section",
+      type: 'section',
       text: blocks.plainText(message),
     },
   ]);
@@ -23,7 +23,7 @@ function listPosts(posts = []) {
   return blocks.base(
     posts.map((post, i) => {
       return {
-        type: "section",
+        type: 'section',
         text: blocks.plainText(post),
       };
     })
