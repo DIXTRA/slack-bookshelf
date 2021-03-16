@@ -1,0 +1,34 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  server:
+    build: .
+    command: npm start
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=development
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules
+  ngrok:
+    image: shkoliar/ngrok:latest
+    ports:
+      - "4551:4551"
+    links:
+      - server
+    environment:
+      - DOMAIN=server
+      - PORT=3000
+      - DEBUG=true
