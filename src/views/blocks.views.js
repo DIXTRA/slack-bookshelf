@@ -14,6 +14,7 @@ function plainText(text) {
 */
 function base(blocks = []) {
   return {
+    response_type: 'in_channel', // or 'ephemeral' // move to constant & in parameters
     blocks,
   };
 }
