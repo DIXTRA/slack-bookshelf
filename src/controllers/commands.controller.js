@@ -1,3 +1,4 @@
+const debug = require('debug')('slack-bookshelf:server');
 const userController = require('./user.controller');
 
 /*
@@ -11,7 +12,9 @@ const COMMANDS = {
 const COMMAND_NAMES = Object.keys(COMMANDS);
 
 function runCommand(req, res) {
-  const command = req.body.text;
+  const command = req.body.text.split(" ")[0];
+
+  debug('command controller:', command);
 
   if (COMMAND_NAMES.includes(command)) {
     console.log(`running '${command}'`);
