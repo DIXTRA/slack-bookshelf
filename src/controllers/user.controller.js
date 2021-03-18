@@ -1,6 +1,11 @@
 const commonViews = require('../views/common.views');
 
-function addPost(req, res) {
+
+/*
+  Acciones del usuario sobre su coleccion personal de posts
+*/
+
+function savePost(req, res) {
   /*
   Agregar Post:
   * Si existe (por url) lo traigo y lo asigno al user
@@ -23,6 +28,6 @@ function getPosts(req, res) {
 }
 
 module.exports = {
-  addPost,
+  savePost,
   getPosts,
 };
