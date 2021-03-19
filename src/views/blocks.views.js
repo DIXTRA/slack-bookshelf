@@ -1,3 +1,8 @@
+const visibility = {
+  inChannel: 'in_channel',
+  ephemeral: 'ephemeral',
+};
+
 /*
   Plain text UI block
  */
@@ -12,9 +17,11 @@ function plainText(text) {
 /*
   base object containing blocks array with all UI blocks
 */
-function base(blocks = []) {
+function base(blocks = [], inChannel = false) {
+  const responseType = inChannel ? visibility.inChannel : visibility.ephemeral;
+
   return {
-    response_type: 'in_channel', // or 'ephemeral' // move to constant & in parameters
+    response_type: responseType,
     blocks,
   };
 }
