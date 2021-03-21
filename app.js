@@ -1,9 +1,10 @@
+const db = require('./database/models');
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const debug = require('debug')('slack-bookshelf:server');
-
 const router = require('./src/routes');
 
 const app = express();
