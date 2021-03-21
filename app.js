@@ -18,6 +18,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // configure routers
 app.use('/', router);
+// adding response methods
+app.use((req, res, next) => {
+  res.success = (data) => {
+    res.json({
+      status: 'success',
+      data,
+    });
+  };
+
+  res.error = (message) => {
+    res.status(500).json({
+      status: 'error',
+      message,
+    });
+  };
+
+  next();
+});
 
 // start app
 const port = process.env.PORT || 3000;
