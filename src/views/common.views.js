@@ -30,7 +30,21 @@ function listPosts(posts = []) {
   );
 }
 
+function showHelp() {
+  // move somewhere else
+  const items = [
+    '`/sb help`: Show this message',
+    '`/sb list`: List saved posts',
+  ];
+
+  return items.map((item) => ({
+    type: 'section',
+    text: blocks.markdown(item),
+  }));
+}
+
 module.exports = {
   listPosts,
   commandError,
+  showHelp,
 };

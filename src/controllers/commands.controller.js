@@ -1,12 +1,10 @@
 const debug = require('debug')('slack-bookshelf:server');
-const userController = require('./user.controller');
 
 const { COMMANDS, COMMAND_NAMES } = require('./commands');
 
 /*
   Handle incoming commands
 */
-
 function runCommand(req, res) {
   const command = req.body.text.split(' ')[0];
 

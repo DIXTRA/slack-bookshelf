@@ -1,5 +1,5 @@
 const visibility = {
-  inChannel: 'in_channel',
+  in_channel: 'in_channel',
   ephemeral: 'ephemeral',
 };
 
@@ -15,13 +15,24 @@ function plainText(text) {
 }
 
 /*
+  Markdown UI block
+ */
+function markdown(text) {
+  return {
+    type: 'mrkdwn',
+    text,
+  };
+}
+
+/*
   base object containing blocks array with all UI blocks
 */
 function base(blocks = [], inChannel = false) {
-  const responseType = inChannel ? visibility.inChannel : visibility.ephemeral;
+  const { in_channel, ephemeral } = visibility;
+  const response_type = inChannel ? in_channel : ephemeral;
 
   return {
-    response_type: responseType,
+    response_type,
     blocks,
   };
 }
@@ -29,4 +40,5 @@ function base(blocks = [], inChannel = false) {
 module.exports = {
   plainText,
   base,
+  markdown,
 };

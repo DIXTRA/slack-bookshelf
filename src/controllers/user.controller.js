@@ -1,6 +1,5 @@
 const commonViews = require('../views/common.views');
 
-
 /*
   Acciones del usuario sobre su coleccion personal de posts
 */
@@ -27,7 +26,15 @@ function getPosts(req, res) {
   res.json(commonViews.listPosts(posts));
 }
 
+/*
+  Show help message
+*/
+function showHelp(req, res) {
+  res.renderBlocks(commonViews.showHelp());
+}
+
 module.exports = {
   savePost,
   getPosts,
+  showHelp,
 };

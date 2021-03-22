@@ -5,6 +5,7 @@ const logger = require('morgan');
 const debug = require('debug')('slack-bookshelf:server');
 
 const router = require('./src/routes');
+const viewBase = require('./src/views/blocks.views').base;
 
 const app = express();
 
@@ -15,8 +16,6 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// configure routers
-app.use('/', router);
 // adding response methods
 app.use((req, res, next) => {
   res.success = (data) => {
@@ -33,8 +32,19 @@ app.use((req, res, next) => {
     });
   };
 
+  res.renderSlack = (content) => {
+    res.json(content);
+  };
+
+  res.renderBlocks = (blocks, inChannel) => {
+    res.json(viewBase(blocks, inChannel));
+  };
+
   next();
 });
+
+// configure routers
+app.use('/', router);
 
 // start app
 const port = process.env.PORT || 3000;
