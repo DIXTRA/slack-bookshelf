@@ -32,11 +32,12 @@ models.Article.belongsToMany(models.Topic, { through: models.ArticleTopic });
 // Article is added to a User
 models.Article.belongsToMany(models.User, { through: 'UserArticles' });
 
-sequelize.sync({ force: true })
+sequelize.sync({ force: true });
 
 const db = {
   sequelize: sequelize,
   Sequelize: Sequelize,
+  ...models,
 };
 
 module.exports = db;
