@@ -1,4 +1,4 @@
-require('./database/models');
+require('./src/models');
 
 const express = require('express');
 const path = require('path');

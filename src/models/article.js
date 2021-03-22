@@ -1,6 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('Article', {
-    // Model attributes are defined here
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
