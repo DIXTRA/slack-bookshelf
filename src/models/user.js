@@ -27,6 +27,7 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: false,
     },
   }, {
+    timestamps: true,
     indexes: [
       { fields: ['slackId'], unique: true },
     ],

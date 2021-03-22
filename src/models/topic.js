@@ -27,5 +27,5 @@ module.exports = function (sequelize, DataTypes) {
         key: 'id',
       }
     }
-  });
+  }, { timestamps: true });
 }
