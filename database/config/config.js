@@ -1,9 +1,7 @@
 require('dotenv').config();
-const debug = require('debug')('slack-bookshelf:server');
 
 module.exports = {
   development: {
-    forceSync: true,
     url: process.env.DATABASE_URL,
     dialect: 'postgres',
     logging: console.log,

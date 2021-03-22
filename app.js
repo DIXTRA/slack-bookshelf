@@ -1,4 +1,4 @@
-const db = require('./database/models');
+require('./database/models');
 
 const express = require('express');
 const path = require('path');
