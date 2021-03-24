@@ -2,8 +2,8 @@ module.exports = function (sequelize, DataTypes) {
   return sequelize.define('Topic', {
     // Model attributes are defined here
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+      defaultValue: sequelize.UUIDV4,
       primaryKey: true,
     },
     name: {
@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: true,
     },
     createdBy: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'Users',

@@ -7,7 +7,7 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: false,
     },
     createdBy: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false,
       references: {
         model: 'Users',
@@ -15,7 +15,7 @@ module.exports = function (sequelize, DataTypes) {
       },
     },
     reviewedBy: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: true,
       references: {
         model: 'Users',
