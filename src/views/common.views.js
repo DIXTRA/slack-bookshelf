@@ -5,14 +5,8 @@ const blocks = require('./blocks.views');
 */
 function commandError(message) {
   return blocks.base([
-    {
-      type: 'header',
-      text: blocks.plainText('Oops!'),
-    },
-    {
-      type: 'section',
-      text: blocks.plainText(message),
-    },
+    blocks.plainText('Oops!', 'header'),
+    blocks.plainText(message),
   ]);
 }
 
@@ -20,14 +14,7 @@ function commandError(message) {
   Demo de listar posts
 */
 function listPosts(posts = []) {
-  return blocks.base(
-    posts.map((post, i) => {
-      return {
-        type: 'section',
-        text: blocks.plainText(post),
-      };
-    })
-  );
+  return blocks.base(posts.map((post, i) => blocks.plainText(post)));
 }
 
 function showHelp() {
@@ -37,10 +24,7 @@ function showHelp() {
     '`/sb list`: List saved posts',
   ];
 
-  return items.map((item) => ({
-    type: 'section',
-    text: blocks.markdown(item),
-  }));
+  return items.map((item) => blocks.markdown(item));
 }
 
 module.exports = {

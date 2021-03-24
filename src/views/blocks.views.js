@@ -4,24 +4,39 @@ const visibility = {
 };
 
 /*
+  Block wrapper
+  @text: block content
+  @type: 'section' | 'header' | ...
+*/
+function block(text, type = 'section') {
+  return { type, text };
+}
+
+/*
   Plain text UI block
- */
-function plainText(text) {
-  return {
-    type: 'plain_text',
-    emoji: true,
-    text,
-  };
+*/
+function plainText(text, type) {
+  return block(
+    {
+      type: 'plain_text',
+      emoji: true,
+      text,
+    },
+    type
+  );
 }
 
 /*
   Markdown UI block
- */
-function markdown(text) {
-  return {
-    type: 'mrkdwn',
-    text,
-  };
+*/
+function markdown(text, type) {
+  return block(
+    {
+      type: 'mrkdwn',
+      text,
+    },
+    type
+  );
 }
 
 /*
