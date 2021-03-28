@@ -1,21 +1,17 @@
 const debug = require('debug')('slack-bookshelf:server');
+const commandHandlers = require('./commands');
 
-const { COMMANDS, COMMAND_NAMES } = require('./commands');
-
-/*
-  Handle incoming commands
-*/
-function runCommand(req, res) {
+function command(req, res) {
   const command = req.body.text.split(' ')[0];
-
   debug('command controller:', command);
 
-  if (COMMAND_NAMES.includes(command)) {
-    console.log(`running '${command}'`);
+  const commandHandler = commandHandlers[command];
 
-    COMMANDS[command](req, res);
-    // res.success();
-  } else res.error('Command not found');
+  if (commandHandler) {
+    return commandHandler(req, res);
+  } else {
+    res.error("wrong command");
+  }
 }
 
-module.exports = { runCommand };
+module.exports = command;
