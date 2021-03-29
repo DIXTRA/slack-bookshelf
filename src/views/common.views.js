@@ -1,4 +1,5 @@
 const blocks = require('./blocks.views');
+const { slackCommand } = require('../utils/constants');
 
 /*
   Demo de mensaje de error 
@@ -17,11 +18,10 @@ function listPosts(posts = []) {
   return blocks.base(posts.map((post, i) => blocks.plainText(post)));
 }
 
-function showHelp() {
-  // move somewhere else
+function showHelp(withError = false) {
   const items = [
-    '`/sb help`: Show this message',
-    '`/sb list`: List saved posts',
+    `\`${slackCommand} help\`: Show this message`,
+    `\`${slackCommand} list\`: List saved posts`,
   ];
 
   return items.map((item) => blocks.markdown(item));
