@@ -1,6 +1,5 @@
 const router = require('express').Router();
-const command = require('../controllers/commands.controller');
-
+const { runCommand } = require('../controllers/commands.controller');
 const { appInstall } = require('../controllers/auth.controller');
 const { getTeam } = require('../middlewares/team.middleware');
 const { getUser } = require('../middlewares/user.middleware');
@@ -16,7 +15,7 @@ router.get('/i18n_test', (req, res, ) => {
   res.json(res.__('Hola Mundo'));
 })
 
-router.post('/command', getTeam, getUser, command);
+router.post('/command', getTeam, getUser, runCommand);
 router.get('/install', appInstall);
 
 router.use(userRouter);
