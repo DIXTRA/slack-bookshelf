@@ -15,7 +15,7 @@ router.get('/i18n_test', (req, res, ) => {
   res.json(res.__('Hola Mundo'));
 })
 
-router.post('/command', getTeam, getUser, runCommand);
+router.post('/commands', getTeam, getUser, runCommand);
 router.get('/install', appInstall);
 
 router.use(userRouter);
