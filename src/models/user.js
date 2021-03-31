@@ -2,7 +2,7 @@ module.exports = function (sequelize, DataTypes) {
   return sequelize.define('User', {
     id: {
       type: DataTypes.UUID,
-      defaultValue: sequelize.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     slackId: {
@@ -15,10 +15,6 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
     },
     username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
