@@ -1,4 +1,4 @@
-const { WebClient, User } = require('@slack/web-api');
+const { WebClient } = require('@slack/web-api');
 
 function getWebClient(token){
   if (token == null)
