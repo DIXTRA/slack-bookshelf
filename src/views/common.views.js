@@ -43,8 +43,22 @@ function showHelp() {
   }));
 }
 
+function listTopicLinks(topic, posts = []) {
+  return blocks.base(
+    posts.map((post, i) => {
+      if (post.topic == topic) {
+        return {
+          type: 'section',
+          text: blocks.plainText(post),
+        };
+      }
+    })
+  );
+}
+
 module.exports = {
   listPosts,
   commandError,
   showHelp,
+  listTopicLinks,
 };
