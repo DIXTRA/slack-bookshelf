@@ -2,7 +2,7 @@ module.exports = function (sequelize, DataTypes) {
   return sequelize.define('Article', {
     id: {
       type: DataTypes.UUID,
-      defaultValue: sequelize.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     url: {
