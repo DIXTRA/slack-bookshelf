@@ -12,7 +12,7 @@ async function addTopic(req, res) {
   const { text: name, team, user } = req;
 
   if (validName(name)) {
-    const topic = await Topic.findOne({ name, teamId: team.id });
+    const topic = await Topic.findOne({ name, TeamId: team.id });
 
     if (topic) {
       res.renderSlack(
