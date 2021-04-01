@@ -9,17 +9,29 @@ const { validName } = require('../helpers/common.helper');
 */
 
 async function addTopic(req, res) {
-  const { text: name, team } = req;
+  const { text: name, team, user } = req;
 
   if (validName(name)) {
-    if (await Topic.findOne({ name })) res.error('ERR');
-    else {
-      await team.createTopic({ name });
+    const topic = await Topic.findOne({ name, teamId: team.id });
 
-      const text = `Topic '${name}' created!`;
-      const message = blocksViews.plainText(text);
+    if (topic) {
+      res.renderSlack(
+        commonViews.commandError(
+          `Topic '${name}' already created\ncreated by ${topic.createdBy.name}`
+        )
+      );
+    } else {
+      const newTopic = await team.createTopic({ name, createdBy: user });
 
-      res.renderBlocks([message], true);
+      if (newTopic) {
+        const text = `Topic '${name}' created!`;
+        const message = blocksViews.plainText(text);
+
+        res.renderBlocks([message], true);
+      } else
+        res.renderSlack(
+          commonViews.commandError(`Error creating topic '${name}'`)
+        );
     }
   } else {
     res.renderSlack(commonViews.commandError(`Invalid topic name '${name}'`));
