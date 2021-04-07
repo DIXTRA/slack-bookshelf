@@ -8,7 +8,7 @@ function listTopicLinks(res, req) {
   const articleList = req.articleList;
   const result = articleList.filter((article) => article.topic == topic);
 
-  res.send(`Listing ${result} posts with that topic`);
+  res.send(`Listing posts with that topic: ${result}`);
   res.renderBlocks(commonViews.listTopicLinks());
 }
 
