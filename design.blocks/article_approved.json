@@ -1,0 +1,18 @@
+{
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Hi Mariano :wave:"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*User_name* has approved your article https://dmitryelj.medium.com/windows-95-how-does-it-look-today-feda837922d9 for *topic_name* :muscle:"
+			}
+		}
+	]
+}
