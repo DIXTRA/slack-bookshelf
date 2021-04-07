@@ -1,15 +1,57 @@
+const commonViews = require('../views/common.views');
+const blocksViews = require('../views/blocks.views');
+const { Topic } = require('../models');
+
+const { validName } = require('../helpers/common.helper');
+
 /*
   Controller para acciones de los admins (crear topics, aprobar posts, etc)
 */
-const commonViews = require('../views/common.views');
 
-function listTopicLinks(res, req) {
-  const topic = req.topic;
-  const articleList = req.articleList;
-  const result = articleList.filter((article) => article.topic == topic);
+async function addTopic(req, res) {
+  const { text: name, team, user } = req;
 
-  res.send(`Listing posts with that topic: ${result}`);
-  res.renderBlocks(commonViews.listTopicLinks());
+  if (validName(name)) {
+    const topic = await Topic.findOne({ name, TeamId: team.id });
+
+    if (topic) {
+      res.renderSlack(
+        commonViews.commandError(
+          `Topic '${name}' already created\ncreated by ${topic.createdBy.name}`
+        )
+      );
+    } else {
+      const newTopic = await team.createTopic({ name, createdBy: user });
+
+      if (newTopic) {
+        const text = `Topic '${name}' created!`;
+        const message = blocksViews.plainText(text);
+
+        res.renderBlocks([message], true);
+      } else
+        res.renderSlack(
+          commonViews.commandError(`Error creating topic '${name}'`)
+        );
+    }
+  } else {
+    res.renderSlack(commonViews.commandError(`Invalid topic name '${name}'`));
+  }
 }
 
-module.exports = { listTopicLinks };
+function listTopicLinks(req, res) {
+  const topic = req.text;
+  const articleList = [
+    { topic: 'topic1', link: 'link1', nombre: 'nombre1' },
+    { topic: 'topic2', link: 'link2', nombre: 'nombre2' },
+    { topic: 'topic1', link: 'link3', nombre: 'nombre3' },
+  ];
+  const result = articleList.filter((article) => article.topic == topic);
+  console.log(result);
+  result.length > 0
+    ? res.renderBlocks(commonViews.listTopicLinks(result))
+    : res.renderBlocks(
+        blocksViews.plainText('No se encontraron posts con ese topic')
+      );
+}
+
+module.exports = { addTopic, listTopicLinks };

@@ -14,14 +14,17 @@ services:
       - db
     ports:
       - "3000:3000"
+      - "9229:9229"
+    expose:
+      - "9229"
     environment:
       - PORT=3000
       - NODE_ENV=development
       - DATABASE_URL=postgres://postgres:postgres@db:5432/slack_bookshelf
     stdin_open: true
     volumes:
-      - ./:/usr/src/app/
-      - nodemodules:/usr/src/app/node_modules
+      - .:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
     tty: true
   ngrok:
     image: shkoliar/ngrok:latest
@@ -35,4 +38,4 @@ services:
       - DEBUG=true
 
 volumes:
-  nodemodules: {}
+  node_modules: {}

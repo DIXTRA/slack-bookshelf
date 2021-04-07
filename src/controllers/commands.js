@@ -6,7 +6,8 @@ const COMMANDS = {
   save: userController.savePost,
   list: userController.getPosts,
   help: userController.showHelp,
-  listTopicLinks: adminController.listTopicLinks,
+  topicLinks: adminController.listTopicLinks,
+  create_topic: adminController.addTopic,
 };
 
 const COMMAND_NAMES = Object.keys(COMMANDS);

@@ -1,5 +1,5 @@
 require('./src/models');
-
+const { I18n } = require('i18n');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -8,8 +8,15 @@ const debug = require('debug')('slack-bookshelf:server');
 const router = require('./src/routes');
 const viewBase = require('./src/views/blocks.views').base;
 
+const i18n = new I18n({
+  locales: ['en', 'es'],
+  defaultLocale: 'en',
+  directory: path.join(__dirname, 'locales')
+});
+
 const app = express();
 
+app.use(i18n.init);
 app.use(logger('dev'));
 app.use(express.json()); // support json encoded bodies
 app.use(express.urlencoded({ extended: false })); // support encoded bodies
