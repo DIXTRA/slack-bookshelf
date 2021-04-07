@@ -7,5 +7,6 @@
 - start docker: `docker-compose up`
 - create database: `docker-compose exec server npx sequelize-cli db:create`
 - sync models `docker-compose exec server npm run sync_db`
+- seed database `docker-compose exec server npx sequelize-cli db:seed:all`
 
 access ngrok dashboard: `http://localhost:4551`
