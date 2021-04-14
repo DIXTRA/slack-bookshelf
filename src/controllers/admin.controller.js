@@ -1,6 +1,6 @@
 const commonViews = require('../views/common.views');
 const blocksViews = require('../views/blocks.views');
-const { Topic } = require('../models');
+const { topicExists } = require('../helpers/topics.helper');
 
 const { validName } = require('../helpers/common.helper');
 
@@ -12,9 +12,9 @@ async function addTopic(req, res) {
   const { text: name, team, user } = req;
 
   if (validName(name)) {
-    const topic = await Topic.findOne({ name, TeamId: team.id });
+    const alreadyCreated = await topicExists(name, team.id);
 
-    if (topic) {
+    if (alreadyCreated) {
       res.renderSlack(
         commonViews.commandError(
           `Topic '${name}' already created\ncreated by ${topic.createdBy.name}`
