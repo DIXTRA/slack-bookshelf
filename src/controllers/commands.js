@@ -4,7 +4,7 @@ const adminController = require('./admin.controller');
 
 const COMMANDS = {
   save: userController.savePost,
-  list: userController.getPosts,
+  saved: userController.getUserSavedPosts,
   help: userController.showHelp,
   create_topic: adminController.addTopic,
 };
