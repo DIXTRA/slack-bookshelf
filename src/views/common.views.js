@@ -15,7 +15,7 @@ function commandError(message) {
   Demo de listar posts
 */
 function listPosts(posts = []) {
-  return blocks.base(posts.map((post, i) => blocks.plainText(post)));
+  return blocks.base(posts.map((post, i) => blocks.plainText(post.title)));
 }
 
 function showHelp(withError = false) {
