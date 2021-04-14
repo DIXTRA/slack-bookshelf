@@ -1,3 +1,7 @@
 {
 	"Hello World": "Hello World",
+
+	"errors": {
+		"list_posts_error": "Couldn't get article list"
+	}
 }

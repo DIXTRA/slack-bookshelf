@@ -1,4 +1,7 @@
 {
 	"Hello World": "Hola Mundo",
-	"Hola Mundo": "Hola Mundo"
+	"Hola Mundo": "Hola Mundo",
+	"errors": {
+		"list_posts_error": "No se logró obtener la lista de artículos"
+	}
 }
