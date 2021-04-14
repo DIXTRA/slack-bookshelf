@@ -7,8 +7,10 @@ async function getUser(req, res, next) {
 
   try {
     const user = await User.findOne({
-      slackId: user_id,
-      TeamId: team.id,
+      where: {
+        slackId: user_id,
+        TeamId: team.id,
+      }
     });
 
     if (user) {
