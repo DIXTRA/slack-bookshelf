@@ -46,7 +46,6 @@ function listTopicLinks(req, res) {
     { topic: 'topic1', link: 'link3', nombre: 'nombre3' },
   ];
   const result = articleList.filter((article) => article.topic == topic);
-  console.log(result);
   result.length > 0
     ? res.renderBlocks(commonViews.listTopicLinks(result))
     : res.renderBlocks(

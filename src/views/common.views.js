@@ -31,9 +31,14 @@ function listTopicLinks(posts) {
   return posts.map((post) => blocks.plainText(post.link));
 }
 
+function getTopics(topics) {
+  return topics.map((topic) => blocks.plainText(topic));
+}
+
 module.exports = {
   listPosts,
   commandError,
   showHelp,
   listTopicLinks,
+  getTopics,
 };

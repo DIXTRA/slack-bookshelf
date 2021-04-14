@@ -6,6 +6,7 @@ const COMMANDS = {
   save: userController.savePost,
   list: userController.getPosts,
   help: userController.showHelp,
+  topics: userController.getTopics,
   topicLinks: adminController.listTopicLinks,
   create_topic: adminController.addTopic,
 };
