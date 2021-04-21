@@ -4,16 +4,19 @@
   "private": true,
   "scripts": {
     "start": "DEBUG=slack-bookshelf:* nodemon --inspect=0.0.0.0:9229 app.js",
-    "sync_db": "DEBUG=slack-bookshelf:* node ./scripts/sync_db.js"
+    "setup": "npx sequelize-cli db:create && node ./scripts/sync_db.js && npx sequelize-cli db:seed:all",
+    "sync_db": "node ./scripts/sync_db.js && npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "@slack/web-api": "^6.1.0",
+    "cheerio": "^1.0.0-rc.5",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",
     "i18n": "^0.13.2",
     "morgan": "~1.9.1",
+    "node-fetch": "^2.6.1",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.5.1"
