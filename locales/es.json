@@ -1,4 +1,10 @@
 {
 	"Hello World": "Hola Mundo",
-	"Hola Mundo": "Hola Mundo"
+	"Hola Mundo": "Hola Mundo",
+	"help_commands" : { 
+		"help":"Show this message",
+		"list":"List saved posts"
+	}
+		
+		
 }

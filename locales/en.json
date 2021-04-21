@@ -1,3 +1,7 @@
 {
 	"Hello World": "Hello World",
+	"help_commands" : { 
+		"help":"Show this message",
+		"list":"List saved posts"
+	}
 }

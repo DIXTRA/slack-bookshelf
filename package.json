@@ -16,8 +16,7 @@
     "morgan": "~1.9.1",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.5.1",
-    "@slack/web-api": "^6.1.0"
+    "sequelize": "^6.5.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.7",

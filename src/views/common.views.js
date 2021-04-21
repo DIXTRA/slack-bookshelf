@@ -1,5 +1,7 @@
 const blocks = require('./blocks.views');
 const { slackCommand } = require('../utils/constants');
+const { COMMANDS } = require('../controllers/commands');
+const debug = require('debug')('slack-bookshelf:server');
 
 /*
   Demo de mensaje de error 
@@ -18,13 +20,13 @@ function listPosts(posts = []) {
   return blocks.base(posts.map((post, i) => blocks.plainText(post)));
 }
 
-function showHelp(withError = false) {
-  const items = [
-    `\`${slackCommand} help\`: Show this message`,
-    `\`${slackCommand} list\`: List saved posts`,
-  ];
-
-  return items.map((item) => blocks.markdown(item));
+function showHelp(req, res, withError = false) {
+  debug("show help common views");
+  const arrayHelpCommands = Object.entries(res.__("help_commands"));
+  debug(arrayHelpCommands);
+  arrayHelpCommands.map(item =>{
+    debug(item.keys, item.values);
+  })
 }
 
 module.exports = {

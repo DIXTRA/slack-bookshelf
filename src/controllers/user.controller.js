@@ -1,4 +1,5 @@
 const commonViews = require('../views/common.views');
+const debug = require('debug')('slack-bookshelf:server');
 
 /*
   Acciones del usuario sobre su coleccion personal de posts
@@ -30,7 +31,7 @@ function getPosts(req, res) {
   Show help message
 */
 function showHelp(req, res) {
-  res.renderBlocks(commonViews.showHelp());
+  res.renderBlocks(commonViews.showHelp(req, res));
 }
 
 module.exports = {
