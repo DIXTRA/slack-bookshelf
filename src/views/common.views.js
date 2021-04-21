@@ -20,10 +20,9 @@ function listPosts(posts = []) {
   return blocks.base(posts.map((post, i) => blocks.plainText(post)));
 }
 
-function showHelp(req, res, withError = false) {
-  const arrayHelpCommands = Object.entries(res.__("help_commands"));
-  arrayHelpCommands.map(item =>{
-    debug(item.keys, item.values);
+function showHelp(arrayHelpCommands, withError = false) {
+  return arrayHelpCommands.map(({key, value}) =>{
+    return `\`${slackCommand} ${key}\`: ${value}`;
   })
 }
 

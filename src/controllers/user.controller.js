@@ -31,7 +31,9 @@ function getPosts(req, res) {
   Show help message
 */
 function showHelp(req, res) {
-  res.renderBlocks(commonViews.showHelp(req, res));
+  const arrayHelpCommands = Object.entries(res.__("help_commands"));
+  debug(arrayHelpCommands);
+  res.renderBlocks(commonViews.showHelp(arrayHelpCommands));
 }
 
 module.exports = {
