@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "DEBUG=slack-bookshelf:* nodemon --inspect=0.0.0.0:9229 app.js",
-    "sync_db": "DEBUG=slack-bookshelf:* node ./scripts/sync_db.js"
+    "setup": "npx sequelize-cli db:create && node ./scripts/sync_db.js && npx sequelize-cli db:seed:all",
+    "sync_db": "node ./scripts/sync_db.js && npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "@slack/web-api": "^6.1.0",
