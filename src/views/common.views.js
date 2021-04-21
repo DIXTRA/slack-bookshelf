@@ -21,9 +21,10 @@ function listPosts(posts = []) {
 }
 
 function showHelp(arrayHelpCommands, withError = false) {
-  return arrayHelpCommands.map(({key, value}) =>{
+  const block = arrayHelpCommands.map(([key, value]) =>{
     return `\`${slackCommand} ${key}\`: ${value}`;
-  })
+  }).join('`\n');
+  return [blocks.markdown(block)];
 }
 
 module.exports = {

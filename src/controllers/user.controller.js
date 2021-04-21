@@ -32,7 +32,6 @@ function getPosts(req, res) {
 */
 function showHelp(req, res) {
   const arrayHelpCommands = Object.entries(res.__("help_commands"));
-  debug(arrayHelpCommands);
   res.renderBlocks(commonViews.showHelp(arrayHelpCommands));
 }
 
