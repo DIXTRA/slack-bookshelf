@@ -1,4 +1,4 @@
-const { Article } = require('../models');
+const { Article, Topic, ArticleTopic } = require('../models');
 
 const { getCommandParams } = require('../helpers/commands.helper');
 const { topicExists } = require('../helpers/topics.helper');
@@ -17,16 +17,19 @@ const debug = require('debug')('slack-bookshelf:server');
 */
 
 async function addPostToTopic(req, res) {
-  const { text, team } = req;
+  const { text, team, user } = req;
   const commandParams = getCommandParams(text, 2);
+  // /mariano add Topico https://medium.com/crowdbotics/slack-api-tutorial-how-to-build-a-simple-slack-app-that-tells-you-real-time-cryptocurrency-praices-c78778a40bb4
 
   try {
     if (!commandParams) throw new Error('Wrong number of params');
     const [topicName, postUrl] = commandParams;
 
-    const hasTopic = await topicExists(topicName, team.id);
+    const topic = await Topic.findOne({
+      where: { name: topicName, TeamId: team.id },
+    });
 
-    if (!hasTopic) throw new Error(`Topic '${topicName}' not found`);
+    if (!topic) throw new Error(`Topic '${topicName}' not found`);
 
     let post = await Article.findOne({ where: { url: postUrl } });
 
@@ -54,6 +57,12 @@ async function addPostToTopic(req, res) {
     }
 
     if (!post) throw new Error('Error creating post');
+
+    await ArticleTopic.create({
+      createdBy: user.id,
+      TopicId: topic.id,
+      ArticleId: post.id,
+    });
 
     res.renderBlocks([plainText('Article added successfully to topic')]);
   } catch (e) {
