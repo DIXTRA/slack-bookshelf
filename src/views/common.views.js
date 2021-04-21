@@ -21,9 +21,7 @@ function listPosts(posts = []) {
 }
 
 function showHelp(req, res, withError = false) {
-  debug("show help common views");
   const arrayHelpCommands = Object.entries(res.__("help_commands"));
-  debug(arrayHelpCommands);
   arrayHelpCommands.map(item =>{
     debug(item.keys, item.values);
   })
