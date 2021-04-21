@@ -16,12 +16,10 @@ async function addTopic(req, res) {
 
     if (alreadyCreated) {
       res.renderSlack(
-        commonViews.commandError(
-          `Topic '${name}' already created\ncreated by ${topic.createdBy.name}`
-        )
+        commonViews.commandError(`Topic '${name}' already created`)
       );
     } else {
-      const newTopic = await team.createTopic({ name, createdBy: user });
+      const newTopic = await team.createTopic({ name, createdBy: user.id });
 
       if (newTopic) {
         const text = `Topic '${name}' created!`;
