@@ -19,7 +19,6 @@ const debug = require('debug')('slack-bookshelf:server');
 async function addPostToTopic(req, res) {
   const { text, team, user } = req;
   const commandParams = getCommandParams(text, 2);
-  // /mariano add Topico https://medium.com/crowdbotics/slack-api-tutorial-how-to-build-a-simple-slack-app-that-tells-you-real-time-cryptocurrency-praices-c78778a40bb4
 
   try {
     if (!commandParams) throw new Error('Wrong number of params');
