@@ -23,6 +23,8 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: false,
     },
   }, {
+    sequelize,
+    modelName: 'User',
     timestamps: true,
     indexes: [
       { fields: ['slackId'], unique: true },

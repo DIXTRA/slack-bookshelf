@@ -1,5 +1,9 @@
+const { Model } = require('sequelize');
+
+class Team extends Model {}
+
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('Team', {
+  return Team.init({
     // Model attributes are defined here
     id: {
       type: DataTypes.UUID,
@@ -20,8 +24,11 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false,
     }
   }, {
+    modelName: 'Team',
+    timestamps: true,
+    sequelize,
     indexes: [
       { fields: ['slackId'], unique: true },
     ],
-  }, { timestamps: true });
+  });
 }
