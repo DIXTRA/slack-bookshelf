@@ -1,4 +1,4 @@
 module.exports = {
-  nameRegex: /[A-Z][a-z]/,
+  nameRegex: /[A-Za-z]/,
   slackCommand: '/sb'
 };
