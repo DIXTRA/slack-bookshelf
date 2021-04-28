@@ -14,25 +14,34 @@ async function addTopic(req, res) {
   if (validName(name)) {
     const alreadyCreated = await topicExists(name, team.id);
 
-    if (alreadyCreated) {
+    if (alreadyCreated)
       res.renderSlack(
-        commonViews.commandError(`Topic '${name}' already created`)
+        commonViews.commandError(
+          req.__('errors.topic_already_created_error', { name })
+        )
       );
-    } else {
+    else {
       const newTopic = await team.createTopic({ name, createdBy: user.id });
 
       if (newTopic) {
-        const text = `Topic '${name}' created!`;
-        const message = blocksViews.plainText(text);
+        const message = blocksViews.plainText(
+          req.__('topics.create_success', { name })
+        );
 
         res.renderBlocks([message], true);
       } else
         res.renderSlack(
-          commonViews.commandError(`Error creating topic '${name}'`)
+          commonViews.commandError(
+            req.__('errors.create_topic_error', { name })
+          )
         );
     }
   } else {
-    res.renderSlack(commonViews.commandError(`Invalid topic name '${name}'`));
+    res.renderSlack(
+      commonViews.commandError(
+        req.__('errors.invalid_topic_name_error', { name })
+      )
+    );
   }
 }
 

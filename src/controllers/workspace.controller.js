@@ -21,21 +21,25 @@ async function addPostToTopic(req, res) {
   const commandParams = getCommandParams(text, 2);
 
   try {
-    if (!commandParams) throw new Error('Wrong number of params');
+    if (!commandParams)
+      throw new Error(req.__('errors.number_of_params_error'));
     const [topicName, postUrl] = commandParams;
 
     const topic = await Topic.findOne({
       where: { name: topicName, TeamId: team.id },
     });
 
-    if (!topic) throw new Error(`Topic '${topicName}' not found`);
+    if (!topic)
+      throw new Error(
+        req.__('errors.topic_not_found_error', { name: topicName })
+      );
 
     let post = await Article.findOne({ where: { url: postUrl } });
 
     if (!post) {
       const info = await getInfo(postUrl);
       debug('INFO:', { info });
-      if (!info) throw new Error('Error fetching post');
+      if (!info) throw new Error(req.__('errors.get_post_info_error'));
 
       const {
         name,
@@ -55,7 +59,7 @@ async function addPostToTopic(req, res) {
       });
     }
 
-    if (!post) throw new Error('Error creating post');
+    if (!post) throw new Error(req.__('errors.create_post_error'));
 
     await ArticleTopic.create({
       createdBy: user.id,
@@ -63,7 +67,7 @@ async function addPostToTopic(req, res) {
       ArticleId: post.id,
     });
 
-    res.renderBlocks([plainText('Article added successfully to topic')]);
+    res.renderBlocks([plainText(req.__('articles.add_to_topic_success'))]);
   } catch (e) {
     debug(e);
     res.renderSlack(commonViews.commandError(e.message));
