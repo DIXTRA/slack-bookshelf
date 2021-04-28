@@ -1,10 +1,11 @@
 {
 	"Hello World": "Hola Mundo",
 	"Hola Mundo": "Hola Mundo",
+	"error_message": "Hay un error en el comando, por favor intente más tarde",
 	"help_commands" : { 
-		"help":"El comando /sb help",
-		"list":"/sb list"
+		"help":"Accede a las notificaciones y preferencias de bookshelf o escribe comando help como mensaje en la app de Bookshelf.",
+		"list nombre_topico": "Para listar los posteos de un topico especifico",
+		"list o sb saved": "Para listar los posteos que tienes guardado",
+		"topics": "Para listar los topicos que están guardados"
 	}
-		
-		
 }

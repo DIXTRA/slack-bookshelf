@@ -23,7 +23,6 @@ function savePost(req, res) {
 */
 function getPosts(req, res) {
   const posts = ['post1', 'post2'];
-  // res.send(`Listing ${req.user} posts`);
   res.json(commonViews.listPosts(posts));
 }
 
@@ -32,7 +31,9 @@ function getPosts(req, res) {
 */
 function showHelp(req, res) {
   const arrayHelpCommands = Object.entries(res.__("help_commands"));
-  res.renderBlocks(commonViews.showHelp(arrayHelpCommands));
+  const errorMessage = res.__("error_message");
+
+  res.renderBlocks(commonViews.showHelp(arrayHelpCommands,errorMessage));
 }
 
 module.exports = {

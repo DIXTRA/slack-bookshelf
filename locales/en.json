@@ -1,7 +1,10 @@
 {
 	"Hello World": "Hello World",
+	"error_message": "There is an error in the command, please try later",
 	"help_commands" : { 
-		"help":"Show this message",
-		"list":"List saved posts"
+		"help": "To access these bookshelf preferences and notifications, or type \"help\" in your message to the Boockshelf App. Show this message",
+		"list topic_name": "To list post for a specific topic",
+		"list or sb saved": "To list post you saved",
+		"topics": "To list topics saved"
 	}
 }

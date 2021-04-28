@@ -20,11 +20,14 @@ function listPosts(posts = []) {
   return blocks.base(posts.map((post, i) => blocks.plainText(post)));
 }
 
-function showHelp(arrayHelpCommands, withError = false) {
-  const block = arrayHelpCommands.map(([key, value]) =>{
+function showHelp(arrayHelpCommands, errorMessage, withError = false) {
+  const blockList = arrayHelpCommands.map(([key, value]) =>{
     return `\`${slackCommand} ${key}\`: ${value}`;
-  }).join('`\n');
-  return [blocks.markdown(block)];
+  });
+  if(withError){
+    blockList.unshift(errorMessage);
+  }
+  return [blocks.markdown(blockList.join('\n'))];
 }
 
 module.exports = {
