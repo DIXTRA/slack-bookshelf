@@ -1,4 +1,5 @@
 const commonViews = require('../views/common.views');
+const debug = require('debug')('slack-bookshelf:server');
 
 /*
   Acciones del usuario sobre su coleccion personal de posts
@@ -22,7 +23,6 @@ function savePost(req, res) {
 */
 function getPosts(req, res) {
   const posts = ['post1', 'post2'];
-  // res.send(`Listing ${req.user} posts`);
   res.json(commonViews.listPosts(posts));
 }
 
@@ -30,7 +30,10 @@ function getPosts(req, res) {
   Show help message
 */
 function showHelp(req, res) {
-  res.renderBlocks(commonViews.showHelp());
+  const arrayHelpCommands = Object.entries(res.__("help_commands"));
+  const errorMessage = res.__("error_message");
+
+  res.renderBlocks(commonViews.showHelp(arrayHelpCommands,errorMessage));
 }
 
 module.exports = {
