@@ -1,8 +1,11 @@
 {
-	"Hello World": "Hello World",
 	"error_message": "There is an error in the command, please try later",
 	"help_commands" : { 
-		"help": "To access these bookshelf preferences and notifications, or type \"help\" in your message to the Boockshelf App. Show this message",
+		"help": "To access these bookshelf preferences and notifications, or type \"help\" in your message to the Boockshelf App.",
+		"create_topic topic_name": "Create a topic so that users can add links to that created topic. Topic_name is the name you want to add for that topic. Only administrators can add topics",
+		"add topic_name link": "Add a link to a specific topic (topic must be previously created). The link added to the topic will be added, however it must have the approval of the administrator/s to be visible on the topic",
+		"save link": "Add a link to your user to be able to access whenever you want later",
+		"share topic_name @username": "Share a topic to a specific user. Topic_name is the name of the topic and username is the name of the user you want to share to. The @ is to display the list of users to be able to select them. The topic can be shared to several users by separating them with a space or it can be shared to a specific channel by changing the @ for a # and selecting from the list of channels",
 		"list topic_name": "To list post for a specific topic",
 		"list or /sb saved": "To list post you saved",
 		"topics": "To list topics saved"
