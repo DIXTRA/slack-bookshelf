@@ -1,6 +1,6 @@
 {
 	"error_message": "There is an error in the command, please try later",
-	"help_commands" : { 
+	"help_commands": {
 		"help": "To access these bookshelf preferences and notifications, or type \"help\" in your message to the Boockshelf App.",
 		"create_topic topic_name": "Create a topic so that users can add links to that created topic. Topic_name is the name you want to add for that topic. Only administrators can add topics",
 		"add topic_name link": "Add a link to a specific topic (topic must be previously created). The link added to the topic will be added, however it must have the approval of the administrator/s to be visible on the topic",
@@ -17,7 +17,8 @@
 		"get_post_info_error": "Error fetching the post info",
 		"create_post_error": "Error creating post in database",
 		"create_topic_error": "Error creating topic '{{name}}'",
-		"invalid_topic_name_error": "Invalid topic name '{{name}}'"
+		"invalid_topic_name_error": "Invalid topic name '{{name}}'",
+		"list_posts_error": "Couldn't get article list"
 	},
 	"articles": {
 		"add_to_topic_success": "Article added successfully to topic, an admin will review and complete the process"

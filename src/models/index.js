@@ -27,9 +27,13 @@ models.User.belongsTo(models.Team);
 // Topic belongs to a Team
 models.Topic.belongsTo(models.Team);
 models.Team.hasMany(models.Topic);
+
 // Article is added to a Topic
 models.Article.belongsToMany(models.Topic, { through: models.ArticleTopic });
+models.Topic.belongsToMany(models.Article, { through: models.ArticleTopic });
+
 // Article is added to a User
+models.User.belongsToMany(models.Article, { through: 'UserArticles' });
 models.Article.belongsToMany(models.User, { through: 'UserArticles' });
 
 const db = {

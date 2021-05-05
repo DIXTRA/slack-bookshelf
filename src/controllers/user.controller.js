@@ -1,3 +1,4 @@
+const { User, Article } = require('../models');
 const commonViews = require('../views/common.views');
 const debug = require('debug')('slack-bookshelf:server');
 
@@ -21,9 +22,14 @@ function savePost(req, res) {
 /*
   Demo list posts
 */
-function getPosts(req, res) {
-  const posts = ['post1', 'post2'];
-  res.json(commonViews.listPosts(posts));
+async function getUserSavedPosts(req, res) {
+  try {
+    const posts = await req.user.getArticles()
+
+    res.json(commonViews.listPosts(posts));
+  } catch (e) {
+    res.json(commonViews.commandError(req.__("errors.list_posts_error")));
+  }
 }
 
 /*
@@ -38,6 +44,6 @@ function showHelp(req, res) {
 
 module.exports = {
   savePost,
-  getPosts,
+  getUserSavedPosts,
   showHelp,
 };

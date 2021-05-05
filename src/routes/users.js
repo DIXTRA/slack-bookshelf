@@ -7,6 +7,4 @@ router.get('/users', function (req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/users', middleware.getUser, controller.getPosts);
-
 module.exports = router;
