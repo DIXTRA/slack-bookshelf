@@ -1,5 +1,6 @@
 const { User, Article } = require('../models');
 const commonViews = require('../views/common.views');
+const debug = require('debug')('slack-bookshelf:server');
 
 /*
   Acciones del usuario sobre su coleccion personal de posts
@@ -34,8 +35,11 @@ async function getUserSavedPosts(req, res) {
 /*
   Show help message
 */
-function showHelp(req, res) {  
-  res.renderBlocks(commonViews.showHelp());
+function showHelp(req, res) {
+  const arrayHelpCommands = Object.entries(res.__("help_commands"));
+  const errorMessage = res.__("error_message");
+
+  res.renderBlocks(commonViews.showHelp(arrayHelpCommands,errorMessage));
 }
 
 module.exports = {
