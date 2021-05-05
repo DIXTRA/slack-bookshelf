@@ -5,7 +5,7 @@
 	"help_commands" : { 
 		"help":"Accede a las notificaciones y preferencias de bookshelf o escribe comando help como mensaje en la app de Bookshelf.",
 		"list nombre_topico": "Para listar los posteos de un topico especifico",
-		"list o sb saved": "Para listar los posteos que tienes guardado",
+		"list o /sb saved": "Para listar los posteos que tienes guardado",
 		"topics": "Para listar los topicos que están guardados"
 	},
 	"errors": {

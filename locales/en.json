@@ -4,7 +4,7 @@
 	"help_commands" : { 
 		"help": "To access these bookshelf preferences and notifications, or type \"help\" in your message to the Boockshelf App. Show this message",
 		"list topic_name": "To list post for a specific topic",
-		"list or sb saved": "To list post you saved",
+		"list or /sb saved": "To list post you saved",
 		"topics": "To list topics saved"
 	},
 	"errors": {
