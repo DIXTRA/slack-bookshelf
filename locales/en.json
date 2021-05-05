@@ -1,6 +1,7 @@
 {
 	"Hello World": "Hello World",
 	"errors": {
+		"admin_only_error": "Only admins can run this command",
 		"number_of_params_error": "Wrong number of params",
 		"topic_not_found_error": "Topic '{{name}}' not found",
 		"topic_already_created_error": "Topic '{{name}}' is already created",

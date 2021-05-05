@@ -2,6 +2,7 @@
 	"Hello World": "Hola Mundo",
 	"Hola Mundo": "Hola Mundo",
 	"errors": {
+		"admin_only_error": "Debes ser administrador para utilizar este comando",
 		"number_of_params_error": "Número incorrecto de parámetros",
 		"topic_not_found_error": "No se ha encontrado el tópico {{name}}",
 		"topic_already_created_error": "El tópico '{{name}}' ya existe",

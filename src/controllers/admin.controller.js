@@ -8,8 +8,22 @@ const { validName } = require('../helpers/common.helper');
   Controller para acciones de los admins (crear topics, aprobar posts, etc)
 */
 
+// control access to admins only
+function adminOnlyError(req, res) {
+  const isAdmin = !!req?.user?.isAdmin;
+
+  if (!isAdmin)
+    res.renderSlack(
+      commonViews.commandError(req.__('errors.admin_only_error'))
+    );
+
+  return !isAdmin;
+}
+
 async function addTopic(req, res) {
   const { text: name, team, user } = req;
+
+  if (adminOnlyError(req, res)) return;
 
   if (validName(name)) {
     const alreadyCreated = await topicExists(name, team.id);
