@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { runCommand } = require('../controllers/commands.controller');
+const { runInteractive } = require('../controllers/interactive.controller');
 const { appInstall } = require('../controllers/auth.controller');
 const { getTeam } = require('../middlewares/team.middleware');
 const { getUser } = require('../middlewares/user.middleware');
@@ -17,6 +18,7 @@ router.get('/i18n_test', (req, res, ) => {
 
 router.post('/commands', getTeam, getUser, runCommand);
 router.get('/install', appInstall);
+router.post('/interactive', runInteractive);
 
 router.use(userRouter);
 

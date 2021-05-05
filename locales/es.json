@@ -7,5 +7,20 @@
 		"list nombre_topico": "Para listar los posteos de un topico especifico",
 		"list o sb saved": "Para listar los posteos que tienes guardado",
 		"topics": "Para listar los topicos que están guardados"
+	},
+	"errors": {
+		"number_of_params_error": "Número incorrecto de parámetros",
+		"topic_not_found_error": "No se ha encontrado el tópico {{name}}",
+		"topic_already_created_error": "El tópico '{{name}}' ya existe",
+		"get_post_info_error": "Error al obtener información sobre el post",
+		"create_post_error": "Error al crear el post en la base de datos",
+		"create_topic_error": "Error al crear el tópico '{{name}}'",
+		"invalid_topic_name_error": "Nombre de tópico '{{name}}' inválido"
+	},
+	"articles": {
+		"add_to_topic_success": "Se ha guardado el artículo exitosamente en el tópico, un administrador lo revisará para completar el proceso"
+	},
+	"topics": {
+		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!"
 	}
 }

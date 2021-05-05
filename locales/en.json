@@ -6,5 +6,20 @@
 		"list topic_name": "To list post for a specific topic",
 		"list or sb saved": "To list post you saved",
 		"topics": "To list topics saved"
+	},
+	"errors": {
+		"number_of_params_error": "Wrong number of params",
+		"topic_not_found_error": "Topic '{{name}}' not found",
+		"topic_already_created_error": "Topic '{{name}}' is already created",
+		"get_post_info_error": "Error fetching the post info",
+		"create_post_error": "Error creating post in database",
+		"create_topic_error": "Error creating topic '{{name}}'",
+		"invalid_topic_name_error": "Invalid topic name '{{name}}'"
+	},
+	"articles": {
+		"add_to_topic_success": "Article added successfully to topic, an admin will review and complete the process"
+	},
+	"topics": {
+		"create_success": "Topic '{{name}}' created successfully!"
 	}
 }
