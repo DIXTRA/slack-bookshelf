@@ -31,7 +31,7 @@ function showHelp(arrayHelpCommands, errorMessage, withError = false) {
 }
 
 function listTopicLinks(posts) {
-  return posts.map((post) => blocks.plainText(post.link));
+  return posts.map((post) => blocks.plainText(post.url));
 }
 
 function getTopics(topics) {

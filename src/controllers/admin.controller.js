@@ -1,6 +1,8 @@
 const commonViews = require('../views/common.views');
 const blocksViews = require('../views/blocks.views');
 const { topicExists } = require('../helpers/topics.helper');
+const { getCommandParams } = require('../helpers/commands.helper');
+const { Topic } = require('../models');
 
 const { validName } = require('../helpers/common.helper');
 
@@ -45,19 +47,30 @@ async function addTopic(req, res) {
   }
 }
 
-function listTopicLinks(req, res) {
-  const topic = req.text;
-  const articleList = [
-    { topic: 'topic1', link: 'link1', nombre: 'nombre1' },
-    { topic: 'topic2', link: 'link2', nombre: 'nombre2' },
-    { topic: 'topic1', link: 'link3', nombre: 'nombre3' },
-  ];
-  const result = articleList.filter((article) => article.topic == topic);
-  result.length > 0
-    ? res.renderBlocks(commonViews.listTopicLinks(result))
-    : res.renderBlocks(
-        blocksViews.plainText('No se encontraron posts con ese topic')
+async function listTopicLinks(req, res) {
+  const { text, team } = req;
+  try {
+    const commandParams = getCommandParams(text, 1);
+    if (!commandParams)
+      throw new Error(req.__('errors.number_of_params_error'));
+    const topicName = commandParams[0];
+    const topic = await Topic.findOne({
+      where: { name: topicName, TeamId: team.id },
+    });
+    if (!topic)
+      throw new Error(
+        req.__('errors.topic_not_found_error', { name: topicName })
       );
+    const result = await topic.getArticles();
+    if (result.length > 0) {
+      throw new Error(req.__('errors.list_posts_error'));
+    } else {
+      res.renderBlocks(commonViews.listTopicLinks(result));
+    }
+  } catch (e) {
+    console.log(e);
+    res.renderSlack(commonViews.commandError(e.message));
+  }
 }
 
 module.exports = { addTopic, listTopicLinks };
