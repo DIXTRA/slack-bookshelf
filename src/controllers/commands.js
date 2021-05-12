@@ -5,7 +5,7 @@ const workspaceController = require('./workspace.controller');
 
 const COMMANDS = {
   save: userController.savePost,
-  list: userController.getPosts,
+  saved: userController.getUserSavedPosts,
   help: userController.showHelp,
   topics: userController.getTopics,
   topicLinks: adminController.listTopicLinks,
