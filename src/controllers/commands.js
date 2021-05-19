@@ -8,7 +8,7 @@ const COMMANDS = {
   saved: userController.getUserSavedPosts,
   help: userController.showHelp,
   topics: userController.getTopics,
-  topicLinks: adminController.listTopicLinks,
+  list: adminController.listTopicLinks,
   create_topic: adminController.addTopic,
   add: workspaceController.addPostToTopic,
 };

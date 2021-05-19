@@ -1,4 +1,4 @@
-const { User, Article } = require('../models');
+const { User, Article, Topic } = require('../models');
 const commonViews = require('../views/common.views');
 const blocksViews = require('../views/blocks.views');
 const debug = require('debug')('slack-bookshelf:server');
@@ -25,11 +25,11 @@ function savePost(req, res) {
 */
 async function getUserSavedPosts(req, res) {
   try {
-    const posts = await req.user.getArticles()
+    const posts = await req.user.getArticles();
 
     res.json(commonViews.listPosts(posts));
   } catch (e) {
-    res.json(commonViews.commandError(req.__("errors.list_posts_error")));
+    res.json(commonViews.commandError(req.__('errors.list_posts_error')));
   }
 }
 
@@ -37,39 +37,26 @@ async function getUserSavedPosts(req, res) {
   Show help message
 */
 function showHelp(req, res) {
-  const arrayHelpCommands = Object.entries(res.__("help_commands"));
-  const errorMessage = res.__("error_message");
+  const arrayHelpCommands = Object.entries(res.__('help_commands'));
+  const errorMessage = res.__('error_message');
 
-  res.renderBlocks(commonViews.showHelp(arrayHelpCommands,errorMessage));
+  res.renderBlocks(commonViews.showHelp(arrayHelpCommands, errorMessage));
 }
 
-function getTopics(req, res) {
-  // TODO: get topic list 
-  const topicList = [
-    { topic: 'topic1' },
-    { topic: 'topic2' },
-    { topic: 'topic3' },
-  ];
-  
-  // TODO: get article list 
-  const articleList = [
-    { topic: 'topic1', link: 'link1', nombre: 'nombre1' },
-    { topic: 'topic2', link: 'link2', nombre: 'nombre2' },
-    { topic: 'topic1', link: 'link3', nombre: 'nombre3' },
-  ];
+async function getTopics(req, res) {
+  const { team } = req;
 
-  if (topicList.length == 0) {
-    res.renderBlocks(blocksViews.plainText('No se encontraron topics'));
-  } else {
-    var result = [];
-    topicList.map((topic) =>
-      result.push({
-        topic: topic,
-        articles: articleList.filter((article) => article.topic == topic.topic)
-          .length,
-      })
-    );
-    res.renderBlocks(commonViews.getTopics(result));
+  try {
+    const topics = await Topic.findAll({
+      where: { TeamId: team.id },
+    });
+    if (!topics) {
+      throw new Error(req.__('errors.no_topics'));
+    } else {
+      res.renderBlocks(commonViews.getTopics(topics));
+    }
+  } catch (e) {
+    res.renderSlack(commonViews.commandError(e.message));
   }
 }
 

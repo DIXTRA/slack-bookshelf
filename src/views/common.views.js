@@ -35,7 +35,7 @@ function listTopicLinks(posts) {
 }
 
 function getTopics(topics) {
-  return topics.map((topic) => blocks.plainText(topic));
+  return topics.map((topic) => blocks.plainText(topic.name));
 }
 
 module.exports = {

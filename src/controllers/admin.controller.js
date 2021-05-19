@@ -63,6 +63,7 @@ async function addTopic(req, res) {
 
 async function listTopicLinks(req, res) {
   const { text, team } = req;
+
   try {
     const commandParams = getCommandParams(text, 1);
     if (!commandParams)
@@ -82,7 +83,6 @@ async function listTopicLinks(req, res) {
       res.renderBlocks(commonViews.listTopicLinks(result));
     }
   } catch (e) {
-    console.log(e);
     res.renderSlack(commonViews.commandError(e.message));
   }
 }
