@@ -1,4 +1,30 @@
 {
-	"Hello World": "Hola Mundo",
-	"Hola Mundo": "Hola Mundo"
+	"error_message": "Hay un error en el comando, por favor intente más tarde",
+	"help_commands": {
+		"help": "Accede a las notificaciones y preferencias de bookshelf o escribe comando help como mensaje en la app de Bookshelf.",
+		"create_topic nombre_topico": "Crea un tópico para que los usuarios puedan agregar links a ese tópico creado. Nombre_topico es el nombre que se desea agregar. Solamente los administradores pueden agregar tópicos",
+		"add nombre_topico link": "Agrega un link a tópico específico(tópico debe estar creado anteriormente). El link agregado al tópico se agregará, sin embargo debe de tener la aprobación del administrador/es para que esté visible en el tópico",
+		"save link": "Agrega un link a tu usuario para poder acceder cuando desees luego",
+		"share nombre_topic @nombre_usuario": "Comparte un tópico a un usuario específico. nombre_topic es el nombre del tópico y nombre_usuario es nombre del usuario al que quiere compartir. El @ es para poder desplegar la lista de usuarios para poder seleccionarlos. Se puede compartir el tópico a varios usuarios separandolos con un espacio o se puede compartir a un channel especifico cambiando el @ por un # y seleccionando de la lista de channels",
+		"list nombre_topico": "Para listar los posteos de un topico especifico",
+		"list o /sb saved": "Para listar los posteos que tienes guardado",
+		"topics": "Para listar los topicos que están guardados."
+	},
+	"errors": {
+		"admin_only_error": "Debes ser administrador para utilizar este comando",
+		"number_of_params_error": "Número incorrecto de parámetros",
+		"topic_not_found_error": "No se ha encontrado el tópico {{name}}",
+		"topic_already_created_error": "El tópico '{{name}}' ya existe",
+		"get_post_info_error": "Error al obtener información sobre el post",
+		"create_post_error": "Error al crear el post en la base de datos",
+		"create_topic_error": "Error al crear el tópico '{{name}}'",
+		"invalid_topic_name_error": "Nombre de tópico '{{name}}' inválido",
+		"list_posts_error": "No se logró obtener la lista de artículos"
+	},
+	"articles": {
+		"add_to_topic_success": "Se ha guardado el artículo exitosamente en el tópico, un administrador lo revisará para completar el proceso"
+	},
+	"topics": {
+		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!"
+	}
 }
