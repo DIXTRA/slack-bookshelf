@@ -30,8 +30,18 @@ function showHelp(arrayHelpCommands, errorMessage, withError = false) {
   return [blocks.markdown(blockList.join('\n'))];
 }
 
+function listTopicLinks(posts) {
+  return posts.map((post) => blocks.plainText(post.url));
+}
+
+function getTopics(topics) {
+  return topics.map((topic) => blocks.plainText(topic.name));
+}
+
 module.exports = {
   listPosts,
   commandError,
   showHelp,
+  listTopicLinks,
+  getTopics,
 };

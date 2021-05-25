@@ -1,4 +1,4 @@
-const { User, Article } = require('../models');
+const { User, Article, Topic } = require('../models');
 const commonViews = require('../views/common.views');
 const { getCommandParams } = require('../helpers/commands.helper');
 const debug = require('debug')('slack-bookshelf:server');
@@ -60,11 +60,11 @@ async function savePost(req, res) {
 */
 async function getUserSavedPosts(req, res) {
   try {
-    const posts = await req.user.getArticles()
+    const posts = await req.user.getArticles();
 
     res.json(commonViews.listPosts(posts));
   } catch (e) {
-    res.json(commonViews.commandError(req.__("errors.list_posts_error")));
+    res.json(commonViews.commandError(req.__('errors.list_posts_error')));
   }
 }
 
@@ -72,14 +72,32 @@ async function getUserSavedPosts(req, res) {
   Show help message
 */
 function showHelp(req, res) {
-  const arrayHelpCommands = Object.entries(res.__("help_commands"));
-  const errorMessage = res.__("error_message");
+  const arrayHelpCommands = Object.entries(res.__('help_commands'));
+  const errorMessage = res.__('error_message');
 
-  res.renderBlocks(commonViews.showHelp(arrayHelpCommands,errorMessage));
+  res.renderBlocks(commonViews.showHelp(arrayHelpCommands, errorMessage));
+}
+
+async function getTopics(req, res) {
+  const { team } = req;
+
+  try {
+    const topics = await Topic.findAll({
+      where: { TeamId: team.id },
+    });
+    if (!topics) {
+      throw new Error(req.__('errors.no_topics'));
+    } else {
+      res.renderBlocks(commonViews.getTopics(topics));
+    }
+  } catch (e) {
+    res.renderSlack(commonViews.commandError(e.message));
+  }
 }
 
 module.exports = {
   savePost,
   getUserSavedPosts,
   showHelp,
+  getTopics,
 };

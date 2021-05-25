@@ -20,6 +20,7 @@
 		"create_topic_error": "Error al crear el tópico '{{name}}'",
 		"invalid_topic_name_error": "Nombre de tópico '{{name}}' inválido",
 		"list_posts_error": "No se logró obtener la lista de artículos",
+		"no_topics": "No se encontraron tópicos",
 		"invalid_user_error": "Usuario inválido"
 	},
 	"articles": {
