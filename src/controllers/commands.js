@@ -9,6 +9,7 @@ const COMMANDS = {
   help: userController.showHelp,
   create_topic: adminController.addTopic,
   add: workspaceController.addPostToTopic,
+  share: adminController.shareTopic,
 };
 
 const COMMAND_NAMES = Object.keys(COMMANDS);

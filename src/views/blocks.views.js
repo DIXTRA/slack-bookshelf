@@ -12,6 +12,10 @@ function block(text, type = 'section') {
   return { type, text };
 }
 
+function divider() {
+  return { type: 'divider' };
+}
+
 /*
   Plain text UI block
 */
@@ -40,6 +44,16 @@ function markdown(text, type) {
 }
 
 /*
+  Context UI block
+*/
+function context(elements = []) {
+  return {
+    type: 'context',
+    elements,
+  };
+}
+
+/*
   base object containing blocks array with all UI blocks
 */
 function base(blocks = [], inChannel = false) {
@@ -56,4 +70,5 @@ module.exports = {
   plainText,
   base,
   markdown,
+  divider,
 };

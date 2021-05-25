@@ -1,8 +1,12 @@
+const { Article, Topic, ArticleTopic } = require('../models');
 const commonViews = require('../views/common.views');
 const blocksViews = require('../views/blocks.views');
 const { topicExists } = require('../helpers/topics.helper');
-
+const { getCommandParams } = require('../helpers/commands.helper');
 const { validName } = require('../helpers/common.helper');
+const { addAppMetadata } = require('@slack/web-api');
+
+const debug = require('debug')('slack-bookshelf:server');
 
 /*
   Controller para acciones de los admins (crear topics, aprobar posts, etc)
@@ -59,4 +63,30 @@ async function addTopic(req, res) {
   }
 }
 
-module.exports = { addTopic };
+async function shareTopic(req, res) {
+  const { text: name, team, user } = req;
+
+  if (adminOnlyError(req, res)) return;
+
+  // const commandParams = getCommandParams(text, 1);
+  try {
+    const topic = await Topic.findOne({ where: { name, TeamId: team.id } });
+
+    if (!topic)
+      throw new Error(req.__('errors.topic_not_found_error', { name }));
+
+    const articles = await topic.getArticles();
+    debug(articles);
+
+    if (!articles.length) res.send(`*Topic '${name}' is empty*`);
+    else {
+      const msg = articles.map((a) => a.url);
+      res.send('*Listing posts*\n' + msg.join(', \n'));
+    }
+  } catch (e) {
+    debug(e);
+    res.renderSlack(commonViews.commandError(e.message));
+  }
+}
+
+module.exports = { addTopic, shareTopic };

@@ -70,7 +70,7 @@ async function addPostToTopic(req, res) {
     res.renderBlocks([plainText(req.__('articles.add_to_topic_success'))]);
   } catch (e) {
     debug(e);
-    res.renderSlack(commonViews.commandError(e.message));
+    res.renderSlack(commonViews.commandError(e));
   }
 }
 
