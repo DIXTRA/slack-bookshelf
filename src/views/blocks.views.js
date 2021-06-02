@@ -32,11 +32,11 @@ function actions(elements = []) {
   return { type: 'actions', elements};
 }
 
-function action(type = "button", text, style = 'primary', value) {
+function action(text, value, type = "button", style = 'primary') {
   return { type, text, style, value};
 }
 
-function text(type = 'mrkdwn', text, emoji) {
+function text(text, type = 'mrkdwn', emoji = true) {
   return { type, text, emoji};
 }
 
