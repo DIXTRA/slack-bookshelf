@@ -1,7 +1,6 @@
 const debug = require('debug')('slack-bookshelf:server');
 const { ActionType } = require('../enum/action_type');
 
-
 function runInteractive(req, res) {
   const payload  = JSON.parse(req.body.payload);
   const { type } = payload
@@ -45,4 +44,6 @@ function runInteractive(req, res) {
   }
 }
 
-module.exports = { runInteractive };
+module.exports = {
+  runInteractive
+};

@@ -9,8 +9,8 @@ module.exports = {
 
     return queryInterface.bulkInsert('ArticleTopics', [{
       approved: true,
-      createdBy: user.id,
-      reviewedBy: user.id,
+      CreatedById: user.id,
+      ReviewedById: user.id,
       reviewedAt: new Date(),
       comment: 'todo ok',
       createdAt: new Date(),

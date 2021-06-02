@@ -10,70 +10,7 @@
 		{
 			"type": "divider"
 		},
-		{
-			"type": "context",
-			"elements": [
-				{
-					"type": "mrkdwn",
-					"text": "Submitted by"
-				},
-				{
-					"type": "image",
-					"image_url": "https://api.slack.com/img/blocks/bkb_template_images/profile_3.png",
-					"alt_text": "Mariano Amado"
-				},
-				{
-					"type": "mrkdwn",
-					"text": "*Mariano Amado*"
-				}
-			]
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*Topic:* Nombre Topic\n\n*Title:* Slack API Tutorial: How To Build A Simple Slack App That Tells You Real-Time Cryptocurrency Prices\n\n*Link:* https://medium.com/crowdbotics/slack-api-tutorial-how-to-build-a-simple-slack-app-that-tells-you-real-time-cryptocurrency-prices-c78778a40bb4\n"
-			},
-			"accessory": {
-				"type": "image",
-				"image_url": "https://miro.medium.com/max/552/1*NigrSmPgGIejsEOy5xfL7A.gif",
-				"alt_text": "meta data image"
-			}
-		},
-		{
-			"type": "actions",
-			"elements": [
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Approve",
-						"emoji": true
-					},
-					"style": "primary",
-					"value": "approve"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Decline",
-						"emoji": true
-					},
-					"style": "danger",
-					"value": "decline"
-				},
-				{
-					"type": "button",
-					"text": {
-						"type": "plain_text",
-						"text": "Remove",
-						"emoji": true
-					},
-					"value": "details"
-				}
-			]
-		},
+		
 		{
 			"type": "divider"
 		},

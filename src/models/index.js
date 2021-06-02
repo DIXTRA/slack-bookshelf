@@ -29,8 +29,40 @@ models.Topic.belongsTo(models.Team);
 models.Team.hasMany(models.Topic);
 
 // Article is added to a Topic
-models.Article.belongsToMany(models.Topic, { through: models.ArticleTopic });
-models.Topic.belongsToMany(models.Article, { through: models.ArticleTopic });
+models.Article.belongsToMany(models.Topic, { through: models.ArticleTopic, as: 'article' });
+models.Topic.belongsToMany(models.Article, { through: models.ArticleTopic, as: 'topic' });
+
+models.ArticleTopic.belongsTo(models.User, {
+  as: 'createdBy',
+  foreignKey: {
+    name: 'CreatedById',
+    allowNull: false
+  }
+});
+
+models.ArticleTopic.belongsTo(models.User, {
+  as: 'reviewedBy',
+  foreignKey: {
+    name: 'ReviewedById'
+  }
+});
+
+models.ArticleTopic.belongsTo(models.Topic, {
+  as: 'topic',
+  foreignKey: {
+    name: 'TopicId',
+    allowNull: false
+  }
+});
+
+
+models.ArticleTopic.belongsTo(models.Article, {
+  as: 'article',
+  foreignKey: {
+    name: 'ArticleId',
+    allowNull: false
+  }
+});
 
 // Article is added to a User
 models.User.belongsToMany(models.Article, { through: 'UserArticles' });

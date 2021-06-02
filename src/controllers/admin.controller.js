@@ -64,6 +64,7 @@ async function addTopic(req, res) {
 async function approveArticle(req, res) {
   const { team, user } = req;
 
+
   
 }
 

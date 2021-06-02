@@ -62,7 +62,7 @@ async function addPostToTopic(req, res) {
     if (!post) throw new Error(req.__('errors.create_post_error'));
 
     await ArticleTopic.create({
-      createdBy: user.id,
+      CreatedById: user.id,
       TopicId: topic.id,
       ArticleId: post.id,
     });
