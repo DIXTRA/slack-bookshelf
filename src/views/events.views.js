@@ -62,32 +62,35 @@ function listApprovalRequests(approvalRequests = []) {
         "elements": [
           {
             "type": "button",
+            "action_id": "approve",
             "text": {
               "type": "plain_text",
               "text": "Approve",
               "emoji": true
             },
             "style": "primary",
-            "value": "approve"
+            "value": request.id.toString(),
           },
           {
             "type": "button",
+            "action_id": "decline",
             "text": {
               "type": "plain_text",
               "text": "Decline",
               "emoji": true
             },
             "style": "danger",
-            "value": "decline"
+            "value": request.id.toString(),
           },
           {
             "type": "button",
+            "action_id": "remove",
             "text": {
               "type": "plain_text",
               "text": "Remove",
               "emoji": true
             },
-            "value": "details"
+            "value": request.id.toString(),
           }
         ]
       },

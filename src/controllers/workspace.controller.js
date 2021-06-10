@@ -38,7 +38,7 @@ async function addPostToTopic(req, res) {
 
     if (!post) {
       const postInfo = await getInfo(postUrl);
-      debug('INFO:', { info });
+      debug('INFO:', { postInfo });
 
       if (!postInfo) throw new Error(req.__('errors.get_post_info_error'));
 

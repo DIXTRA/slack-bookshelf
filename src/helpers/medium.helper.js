@@ -14,9 +14,6 @@ async function getInfo(url)  {
       keywords,
     } = JSON.parse(jsonRaw);
 
-    
-
-
     return {
       name: (name || "").substring(0, 255),
       description: (description || "").substring(0, 255),

@@ -6,6 +6,7 @@ const { appInstall } = require('../controllers/auth.controller');
 const { getTeamMiddleware } = require('../middlewares/team.middleware');
 const { getUserMiddleware } = require('../middlewares/user.middleware');
 const { getEventUserAndTeam } = require('../middlewares/events.middleware');
+const { getInteractiveEventUserAndTeam } = require('../middlewares/interactivity.middleware');
 
 const userRouter = require('./users');
 
@@ -20,8 +21,9 @@ router.get('/i18n_test', (req, res, ) => {
 
 router.post('/commands', getTeamMiddleware, getUserMiddleware, runCommand);
 router.post('/events', getEventUserAndTeam, runEvent);
+router.post('/interactive', getInteractiveEventUserAndTeam, runInteractive);
+
 router.get('/install', appInstall);
-router.post('/interactive', runInteractive);
 
 router.use(userRouter);
 

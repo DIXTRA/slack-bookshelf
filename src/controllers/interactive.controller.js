@@ -5,22 +5,23 @@ function runInteractive(req, res) {
   const payload  = JSON.parse(req.body.payload);
   const { type } = payload
 
-  const user_id = payload.user.id;
-  const team_id = payload.team.id;
-  const channel_id = payload.channel.id;
-  
   debug("payload: " + JSON.stringify(payload));
+
+  const { user, team } = req;
+
+  console.log(user, team);
 
   switch(type) {
     case 'block_actions':
       payload.actions.forEach(action => {
         debug("action: " + JSON.stringify(action));
         
-        const {action_id, block_id,value} = action;
+        const { action_id, value } = action;
 
-        switch(value) {
+        debugger;
+
+        switch(action_id) {
           case ActionType.Approve:
-            // TODO: 
             res.success();
             break;
           case ActionType.Decline:
@@ -37,6 +38,7 @@ function runInteractive(req, res) {
             return;
         }
       });
+
       break;
     default:
       // TODO: Cambiar por otro mensaje y/o estructura
