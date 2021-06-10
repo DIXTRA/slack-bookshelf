@@ -1,5 +1,6 @@
 const { Article, Topic, ArticleTopic } = require('../models');
 const commonViews = require('../views/common.views');
+const articlesViews = require('../views/articles.views');
 const blocksViews = require('../views/blocks.views');
 const { topicExists } = require('../helpers/topics.helper');
 const { getCommandParams } = require('../helpers/commands.helper');
@@ -105,10 +106,10 @@ async function listTopicLinks(req, res) {
         req.__('errors.topic_not_found_error', { name: topicName })
       );
     const result = await topic.getArticles();
-    if (result.length > 0) {
+    if (result.length == 0) {
       throw new Error(req.__('errors.list_posts_error'));
     } else {
-      res.renderBlocks(commonViews.listTopicLinks(result));
+      res.renderBlocks(articlesViews.listTopicArticles("",result));
     }
   } catch (e) {
     res.renderSlack(commonViews.commandError(e.message));

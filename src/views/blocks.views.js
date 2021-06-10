@@ -57,14 +57,11 @@ function plainText(text, type) {
 /*
   Markdown UI block
 */
-function markdown(text, type) {
-  return block(
-    {
+function markdown(text) {
+  return {
       type: 'mrkdwn',
       text,
-    },
-    type
-  );
+    };
 }
 
 /*
