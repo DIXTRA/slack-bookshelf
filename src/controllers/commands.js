@@ -7,6 +7,8 @@ const COMMANDS = {
   save: userController.savePost,
   saved: userController.getUserSavedPosts,
   help: userController.showHelp,
+  topics: userController.getTopics,
+  list: adminController.listTopicLinks,
   create_topic: adminController.addTopic,
   add: workspaceController.addPostToTopic,
 };
