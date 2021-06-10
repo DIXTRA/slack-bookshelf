@@ -1,6 +1,13 @@
 function noApprovalRequests () {
   return [
     {
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "Articles Awaiting Approval",
+			}
+		},
+    {
       "type": "section",
       "text": {
         "type": "mrkdwn",
@@ -11,7 +18,9 @@ function noApprovalRequests () {
 }
 
 function listApprovalRequests(approvalRequests = []) {
-  return approvalRequests.map((request) => {
+  let blocks = [];
+
+  blocks = approvalRequests.map((request) => {
     const { article, topic, createdBy } = request;
 
     return [
@@ -84,10 +93,24 @@ function listApprovalRequests(approvalRequests = []) {
       },
     ]
   }).flat();
+
+  blocks.unshift(
+    {
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "Articles Awaiting Approval",
+			}
+		},
+  );
+
+  return blocks;
 }
 
 function listSavedPosts (savedPosts = []) {
-  return savedPosts.map((post) => [
+  let blocks = [];
+
+  blocks = savedPosts.map((post) => [
     {
       "type": "divider"
     },
@@ -104,6 +127,18 @@ function listSavedPosts (savedPosts = []) {
       }
     },
   ]).flat();
+
+  blocks.unshift(
+    {
+			"type": "header",
+			"text": {
+				"type": "plain_text",
+				"text": "Your saved articles",
+			}
+		},
+  )
+
+  return blocks;
 }
 
 module.exports = {

@@ -36,29 +36,9 @@ async function runEvent (req, res) {
     }
   }
 
-  approvalRequestsBlocks.unshift(
-    {
-			"type": "header",
-			"text": {
-				"type": "plain_text",
-				"text": "Articles Awaiting Approval",
-			}
-		},
-  )
-  
   const userArticles = await user.getArticles();
 
   userPostsBlocks = listSavedPosts(userArticles);
-
-  userPostsBlocks.unshift(
-    {
-			"type": "header",
-			"text": {
-				"type": "plain_text",
-				"text": "Your saved articles",
-			}
-		},
-  )
 
   const webClient = getWebClient(team.token);
 
