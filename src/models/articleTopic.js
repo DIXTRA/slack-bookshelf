@@ -1,5 +1,9 @@
+const { Model } = require('sequelize');
+
+class ArticleTopic extends Model {}
+
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('ArticleTopic', {
+  return ArticleTopic.init({
     // Model attributes are defined here
     approved: {
       type: DataTypes.BOOLEAN,
@@ -14,5 +18,9 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true,
     }
-  }, { timestamps: true });
+  }, {
+    timestamps: true,
+    sequelize,
+    modelName: 'ArticleTopic',
+  });
 }

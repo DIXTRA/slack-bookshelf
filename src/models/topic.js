@@ -1,5 +1,9 @@
+const { Model } = require('sequelize');
+
+class Topic extends Model {}
+
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('Topic', {
+  return Topic.init({
     // Model attributes are defined here
     id: {
       type: DataTypes.UUID,
@@ -27,5 +31,9 @@ module.exports = function (sequelize, DataTypes) {
         key: 'id',
       }
     }
-  }, { timestamps: true });
+  }, {
+    timestamps: true,
+    sequelize,
+    modelName: 'Topic',
+  });
 }
