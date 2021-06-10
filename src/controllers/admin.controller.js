@@ -89,4 +89,30 @@ async function shareTopic(req, res) {
   }
 }
 
-module.exports = { addTopic, shareTopic };
+async function listTopicLinks(req, res) {
+  const { text, team } = req;
+
+  try {
+    const commandParams = getCommandParams(text, 1);
+    if (!commandParams)
+      throw new Error(req.__('errors.number_of_params_error'));
+    const topicName = commandParams[0];
+    const topic = await Topic.findOne({
+      where: { name: topicName, TeamId: team.id },
+    });
+    if (!topic)
+      throw new Error(
+        req.__('errors.topic_not_found_error', { name: topicName })
+      );
+    const result = await topic.getArticles();
+    if (result.length > 0) {
+      throw new Error(req.__('errors.list_posts_error'));
+    } else {
+      res.renderBlocks(commonViews.listTopicLinks(result));
+    }
+  } catch (e) {
+    res.renderSlack(commonViews.commandError(e.message));
+  }
+}
+
+module.exports = { addTopic, listTopicLinks, shareTopic };

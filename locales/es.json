@@ -19,10 +19,13 @@
 		"create_post_error": "Error al crear el post en la base de datos",
 		"create_topic_error": "Error al crear el tópico '{{name}}'",
 		"invalid_topic_name_error": "Nombre de tópico '{{name}}' inválido",
-		"list_posts_error": "No se logró obtener la lista de artículos"
+		"list_posts_error": "No se logró obtener la lista de artículos",
+		"no_topics": "No se encontraron tópicos",
+		"invalid_user_error": "Usuario inválido"
 	},
 	"articles": {
-		"add_to_topic_success": "Se ha guardado el artículo exitosamente en el tópico, un administrador lo revisará para completar el proceso"
+		"add_to_topic_success": "Se ha guardado el artículo exitosamente en el tópico, un administrador lo revisará para completar el proceso",
+		"add_success": "Se ha guardado el artículo exitosamente"
 	},
 	"topics": {
 		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!"
