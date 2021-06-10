@@ -14,7 +14,7 @@ function noApprovalRequests () {
         "text": `*No approval requests*`
       },
     },
-  ]
+  ];
 }
 
 function listApprovalRequests(approvalRequests = []) {
@@ -91,7 +91,7 @@ function listApprovalRequests(approvalRequests = []) {
           }
         ]
       },
-    ]
+    ];
   }).flat();
 
   blocks.unshift(
@@ -136,7 +136,7 @@ function listSavedPosts (savedPosts = []) {
 				"text": "Your saved articles",
 			}
 		},
-  )
+  );
 
   return blocks;
 }
