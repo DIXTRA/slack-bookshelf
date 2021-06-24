@@ -27,6 +27,7 @@
 		"add_success": "Article added successfully"
 	},
 	"topics": {
-		"create_success": "Topic '{{name}}' created successfully!"
+		"create_success": "Topic '{{name}}' created successfully!",
+		"empty_message": "Topic '{{name}}' is empty"
 	}
 }

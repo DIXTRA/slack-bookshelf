@@ -1,6 +1,7 @@
 const { Article, Topic, ArticleTopic } = require('../models');
 const commonViews = require('../views/common.views');
 const blocksViews = require('../views/blocks.views');
+const articlesViews = require('../views/articles.views');
 const { topicExists } = require('../helpers/topics.helper');
 const { getCommandParams } = require('../helpers/commands.helper');
 const { validName } = require('../helpers/common.helper');
@@ -76,12 +77,12 @@ async function shareTopic(req, res) {
       throw new Error(req.__('errors.topic_not_found_error', { name }));
 
     const articles = await topic.getArticles();
-    debug(articles);
 
-    if (!articles.length) res.send(`*Topic '${name}' is empty*`);
+    if (!articles.length)
+      res.send(`*${req.__('topics.empty_message', { name })}*`);
     else {
-      const msg = articles.map((a) => a.url);
-      res.send('*Listing posts*\n' + msg.join(', \n'));
+      const viewBlocks = articlesViews.listTopicArticles(name, articles);
+      res.renderBlocks(viewBlocks, true);
     }
   } catch (e) {
     debug(e);

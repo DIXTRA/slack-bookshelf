@@ -28,6 +28,7 @@
 		"add_success": "Se ha guardado el artículo exitosamente"
 	},
 	"topics": {
-		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!"
+		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!",
+		"empty_message": "El tópico '{{name}}' no contiene artículos"
 	}
 }
