@@ -32,26 +32,23 @@ function actions(elements = []) {
   return { type: 'actions', elements};
 }
 
-function action(text, value, type = "button", style = 'primary') {
-  return { type, text, style, value};
+function action(text, value, action_id, style = 'primary',type = "button" ) {
+  return { type, text, style, value, action_id};
 }
 
-function text(text, type = 'mrkdwn', emoji = true) {
+function text(text, type = 'plain_text', emoji = true) {
   return { type, text, emoji};
 }
 
 /*
   Plain text UI block
 */
-function plainText(text, type) {
-  return block(
-    {
-      type: 'plain_text',
-      emoji: true,
-      text,
-    },
-    type
-  );
+function plainText(text) {
+  return {
+    type: 'plain_text',
+    emoji: true,
+    text,
+  };
 }
 
 /*

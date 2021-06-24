@@ -24,7 +24,8 @@
 	},
 	"articles": {
 		"add_to_topic_success": "Article added successfully to topic, an admin will review and complete the process",
-		"add_success": "Article added successfully"
+		"add_success": "Article added successfully",
+		"submitted_by": "Submitted by"
 	},
 	"topics": {
 		"create_success": "Topic '{{name}}' created successfully!"

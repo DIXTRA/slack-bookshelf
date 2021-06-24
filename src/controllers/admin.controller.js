@@ -1,4 +1,4 @@
-const { Article, Topic, ArticleTopic } = require('../models');
+const { Topic, ArticleTopic } = require('../models');
 const commonViews = require('../views/common.views');
 const articlesViews = require('../views/articles.views');
 const blocksViews = require('../views/blocks.views');
@@ -101,15 +101,23 @@ async function listTopicLinks(req, res) {
     const topic = await Topic.findOne({
       where: { name: topicName, TeamId: team.id },
     });
-    if (!topic)
+    const atriclesTopic = await ArticleTopic.findAll({
+      where: { approved: false, TopicId: topic.id },
+      /*
+      TODO: 
+      include: [
+        { model: User, as: 'createdBy' },
+        { model: Article, as: 'article' },
+      ],*/
+    });
+    if (!topic || !atriclesTopic)
       throw new Error(
         req.__('errors.topic_not_found_error', { name: topicName })
       );
-    const result = await topic.getArticles();
-    if (result.length == 0) {
+    if (atriclesTopic.length == 0) {
       throw new Error(req.__('errors.list_posts_error'));
     } else {
-      res.renderBlocks(articlesViews.listTopicArticles("",result));
+      res.renderBlocks(await articlesViews.listTopicArticles(req, atriclesTopic));
     }
   } catch (e) {
     res.renderSlack(commonViews.commandError(e.message));

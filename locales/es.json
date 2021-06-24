@@ -25,7 +25,8 @@
 	},
 	"articles": {
 		"add_to_topic_success": "Se ha guardado el artículo exitosamente en el tópico, un administrador lo revisará para completar el proceso",
-		"add_success": "Se ha guardado el artículo exitosamente"
+		"add_success": "Se ha guardado el artículo exitosamente",
+		"submitted_by": "Enviado por"
 	},
 	"topics": {
 		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!"
