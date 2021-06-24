@@ -62,7 +62,7 @@ function listApprovalRequests(approvalRequests = []) {
         "elements": [
           {
             "type": "button",
-            "action_id": "approve",
+            "action_id": "approve_article_topic",
             "text": {
               "type": "plain_text",
               "text": "Approve",
@@ -73,7 +73,7 @@ function listApprovalRequests(approvalRequests = []) {
           },
           {
             "type": "button",
-            "action_id": "decline",
+            "action_id": "decline_article_topic",
             "text": {
               "type": "plain_text",
               "text": "Decline",
@@ -84,7 +84,7 @@ function listApprovalRequests(approvalRequests = []) {
           },
           {
             "type": "button",
-            "action_id": "remove",
+            "action_id": "remove_article_topic",
             "text": {
               "type": "plain_text",
               "text": "Remove",

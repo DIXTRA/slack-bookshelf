@@ -2,7 +2,7 @@ const commonViews = require('../views/common.views');
 const blocksViews = require('../views/blocks.views');
 const { topicExists } = require('../helpers/topics.helper');
 const { getCommandParams } = require('../helpers/commands.helper');
-const { Topic } = require('../models');
+const { Topic, ArticleTopic, User, Article } = require('../models');
 
 const { validName } = require('../helpers/common.helper');
 
@@ -77,15 +77,26 @@ async function listTopicLinks(req, res) {
     const topic = await Topic.findOne({
       where: { name: topicName, TeamId: team.id },
     });
-    if (!topic)
+    if (!topic) {
       throw new Error(
         req.__('errors.topic_not_found_error', { name: topicName })
       );
-    const result = await topic.getArticles();
-    if (result.length > 0) {
-      throw new Error(req.__('errors.list_posts_error'));
+    }
+
+    const approvedArticles = await ArticleTopic.findAll({
+      where: { TopicId: topic.id, approved: true },
+      include: [
+        { model: User, as: 'createdBy' },
+        { model: Article, as: 'article' },
+      ],
+    });
+
+    const posts = approvedArticles.map(approvedArticle => approvedArticle.article);
+
+    if (posts.length > 0) {
+      res.renderBlocks(commonViews.listTopicLinks(posts));
     } else {
-      res.renderBlocks(commonViews.listTopicLinks(result));
+      throw new Error(req.__('errors.list_posts_error'));
     }
   } catch (e) {
     res.renderSlack(commonViews.commandError(e.message));

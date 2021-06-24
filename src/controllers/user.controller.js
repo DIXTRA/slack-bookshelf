@@ -35,7 +35,7 @@ async function savePost(req, res) {
         description,
         image: image[0],
         author: authorName,
-        keywords: keywords.join(','),
+        keywords: (keywords || []).join(','),
       });
     }
 
