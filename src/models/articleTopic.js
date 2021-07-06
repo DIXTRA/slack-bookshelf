@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
       defaultValue: false,
     },
     reviewedAt: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
     },
     comment: {

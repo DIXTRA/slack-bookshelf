@@ -21,7 +21,7 @@ async function runEvent (req, res) {
 
   if (user.isAdmin) {
     const approvalRequests = await ArticleTopic.findAll({
-      where: { approved: false, TopicId: teamTopics.map((topic) => topic.id) },
+      where: { ReviewedById: null, TopicId: teamTopics.map((topic) => topic.id) },
       include: [
         { model: User, as: 'createdBy' },
         { model: Topic, as: 'topic' },

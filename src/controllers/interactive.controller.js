@@ -7,7 +7,7 @@ async function removeArticleTopic(articleTopicId) {
     const articleTopicObject = await ArticleTopic.findOne({ where: { id: articleTopicId } });
 
     if (articleTopicObject) {
-      articleTopicObject.destroy();
+      const result = await articleTopicObject.destroy();
 
       return true;
     } else {
@@ -26,8 +26,10 @@ async function declineArticleTopic(articleTopicId, user) {
 
     if (articleTopicObject) {
       articleTopicObject.approved = false;
-      articleTopicObject.reviewedBy = user;
-      articleTopicObject.save();
+      articleTopicObject.ReviewedById = user.id;
+      articleTopicObject.reviewedAt = new Date();
+
+      await articleTopicObject.save();
 
       return true;
     } else {
@@ -47,8 +49,10 @@ async function approveArticleTopic(articleTopicId, user) {
 
     if (articleTopicObject) {
       articleTopicObject.approved = true;
-      articleTopicObject.reviewedBy = user;
-      articleTopicObject.save();
+      articleTopicObject.ReviewedById = user.id;
+      articleTopicObject.reviewedAt = new Date();
+      
+      await articleTopicObject.save()
   
       return true
     }
@@ -82,7 +86,7 @@ async function runInteractive(req, res) {
             switch(action_id) {
               case ActionType.ApproveArticleTopic:
                 if (user.isAdmin) {
-                  const approveResult = approveArticleTopic(value, user);
+                  const approveResult = await approveArticleTopic(value, user);
 
                   if (approveResult) {
                     return resolve({ message: 'Article approved successfully', action });
@@ -94,7 +98,7 @@ async function runInteractive(req, res) {
                 }
               case ActionType.DeclineArticleTopic:
                 if (user.isAdmin) {
-                  const declineResult = declineArticleTopic(value, user);
+                  const declineResult = await declineArticleTopic(value, user);
 
                   if (declineResult) {
                     return resolve({ message: 'Article declined successfully', action });
@@ -106,7 +110,7 @@ async function runInteractive(req, res) {
                 }
               case ActionType.RemoveArticleTopic:
                 if (user.isAdmin) {
-                  const removeResult = removeArticleTopic(value);
+                  const removeResult = await removeArticleTopic(value);
 
                   if (removeResult) {
                     return resolve({ message: 'Article removed successfully', action });
@@ -115,7 +119,7 @@ async function runInteractive(req, res) {
                   }
                 } else {
                   return reject({ error: 'Not permitted', action });  
-                }                
+                }
               default:
                 return reject({ error: 'unhandled action', action });
             }
@@ -130,17 +134,14 @@ async function runInteractive(req, res) {
       await Promise.allSettled(blockActionPromises)
         .then((results) => {
           results.forEach(({ status, value }) => {
-            if (status === 'fulfilled') { // successfully performed the action
-              const { message, action } = value
+            if (status === 'fulfilled') {
+              res.status(200);
+              // TODO: Add home reload  
             } else { // error performing the action
-              debugger
+              res.status(500);
             }
           });
-        }).catch((error) => {
-          console.log(error);
-          debugger;
         });
-
       break;
     default:
       // TODO: Cambiar por otro mensaje y/o estructura
