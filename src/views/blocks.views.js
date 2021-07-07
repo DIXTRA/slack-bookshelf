@@ -36,17 +36,13 @@ function action(text, value, action_id, style = 'primary',type = "button" ) {
   return { type, text, style, value, action_id};
 }
 
-function text(text, type = 'plain_text', emoji = true) {
-  return { type, text, emoji};
-}
-
 /*
   Plain text UI block
 */
-function plainText(text) {
+function plainText(text, emoji = true) {
   return {
     type: 'plain_text',
-    emoji: true,
+    emoji: emoji,
     text,
   };
 }
@@ -95,5 +91,5 @@ module.exports = {
   context,
   actions,
   action,
-  text
+  block
 };

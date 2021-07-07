@@ -17,13 +17,19 @@ async function listTopicArticles(req, articlesTopic = [], actions= []) {
 }
 
 function renderAticle(req, article, actions = [], user){
+  let userName = blocks.markdown(user?.displayName);
+  let userImage = blocks.image('https://api.slack.com/img/blocks/bkb_template_images/profile_3.png');
+  let articleBody = blocks.markdown( `<${article.url}|${article.title}>\n${article.description}`);
+  let articleImage = blocks.image(article.image);
+  let articleActions = ((actions.length > 0) ? [blocks.actions(actions.map((action) => blocks.action(blocks.plainText(action.text), article.id, action.actionId, action.style)))] : []);
+  
   return [
-    ...((user) ? [blocks.context([blocks.markdown(req.__('articles.submitted_by')), blocks.image('https://api.slack.com/img/blocks/bkb_template_images/profile_3.png'), blocks.markdown(user.displayName)])] : []),
+    ...((user) ? [blocks.context([blocks.markdown(req.__('articles.submitted_by')), userImage , userName])] : []),
     blocks.sectionWithImage(
-      blocks.markdown( `<${article.url}|${article.title}>\n${article.description}`), 
-      blocks.image(article.image)
+      articleBody, 
+      articleImage
     ),
-    ...((actions.length > 0) ? [blocks.actions(actions.map((action) => blocks.action(blocks.plainText(action.text), article.id, action.actionId, action.style)))] : []),
+    ...articleActions,
     blocks.divider()
   ];
 }

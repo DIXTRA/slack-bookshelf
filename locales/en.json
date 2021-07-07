@@ -20,7 +20,8 @@
 		"create_topic_error": "Error creating topic '{{name}}'",
 		"invalid_topic_name_error": "Invalid topic name '{{name}}'",
 		"list_posts_error": "Couldn't get article list",
-		"no_topics": "No topics were found"
+		"no_topics": "No topics were found",
+		"command_not_found": "Command not found"
 	},
 	"articles": {
 		"add_to_topic_success": "Article added successfully to topic, an admin will review and complete the process",

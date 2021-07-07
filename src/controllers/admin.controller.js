@@ -43,9 +43,9 @@ async function addTopic(req, res) {
       const newTopic = await team.createTopic({ name, createdBy: user.id });
 
       if (newTopic) {
-        const message = blocksViews.plainText(
+        const message = blocksViews.block(blocksViews.plainText(
           req.__('topics.create_success', { name })
-        );
+        ));
 
         res.renderBlocks([message], true);
       } else

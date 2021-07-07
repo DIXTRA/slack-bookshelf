@@ -7,9 +7,10 @@ const debug = require('debug')('slack-bookshelf:server');
   Demo de mensaje de error 
 */
 function commandError(message) {
+  console.log(message);
   return blocks.base([
-    blocks.plainText('Oops!', 'header'),
-    blocks.plainText(message),
+    blocks.block(blocks.plainText('Oops!'), 'header'),
+    blocks.block(blocks.plainText(message)),
   ]);
 }
 
@@ -17,7 +18,7 @@ function commandError(message) {
   Demo de listar posts
 */
 function listPosts(posts = []) {
-  return blocks.base(posts.map((post, i) => blocks.plainText(post.title)));
+  return blocks.base(posts.map((post, i) => blocks.block(blocks.plainText(post.title))));
 }
 
 function showHelp(arrayHelpCommands, errorMessage, withError = false) {
@@ -27,15 +28,15 @@ function showHelp(arrayHelpCommands, errorMessage, withError = false) {
   if(withError){
     blockList.unshift(errorMessage);
   }
-  return [blocks.markdown(blockList.join('\n'))];
+  return [blocks.block(blocks.markdown(blockList.join('\n')))];
 }
 
 function listTopicLinks(posts) {
-  return posts.map((post) => blocks.plainText(post.url));
+  return posts.map((post) => blocks.block(blocks.plainText(post.url)));
 }
 
 function getTopics(topics) {
-  return topics.map((topic) => blocks.plainText(topic.name));
+  return topics.map((topic) => blocks.block(blocks.plainText(topic.name)));
 }
 
 module.exports = {
