@@ -101,7 +101,7 @@ async function listTopicLinks(req, res) {
     const topic = await Topic.findOne({
       where: { name: topicName, TeamId: team.id },
     });
-    const atriclesTopic = await ArticleTopic.findAll({
+    const articlesTopic = await ArticleTopic.findAll({
       where: { approved: false, TopicId: topic.id },
       /*
       TODO: 
@@ -110,14 +110,14 @@ async function listTopicLinks(req, res) {
         { model: Article, as: 'article' },
       ],*/
     });
-    if (!topic || !atriclesTopic)
+    if (!topic || !articlesTopic)
       throw new Error(
         req.__('errors.topic_not_found_error', { name: topicName })
       );
-    if (atriclesTopic.length == 0) {
+    if (articlesTopic.length == 0) {
       throw new Error(req.__('errors.list_posts_error'));
     } else {
-      res.renderBlocks(await articlesViews.listTopicArticles(req, atriclesTopic));
+      res.renderBlocks(await articlesViews.listTopicArticles(req, articlesTopic));
     }
   } catch (e) {
     res.renderSlack(commonViews.commandError(e.message));
