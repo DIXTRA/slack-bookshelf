@@ -1,12 +1,20 @@
-const { User } = require('../models');
+const { Team, User } = require('../models');
 const { getUser } = require('../helpers/slack.helper');
-const debug = require('debug')('slack-bookshelf:server');
 
-async function getUserMiddleware(req, res, next) {
-  const { team } = req;
-  const { user_id } = req.body;
+async function getEventUserAndTeam(req, res, next) {
+  if (req.body.challenge) {
+    return next();
+  }
 
-  try {
+  const { team_id, event: { user: user_id }, challenge } = req.body;
+
+  const team = await Team.findOne({
+    slackId: team_id,
+  });
+
+  if (team) {
+    req.team = team;
+
     const user = await User.findOne({
       where: {
         slackId: user_id,
@@ -21,8 +29,6 @@ async function getUserMiddleware(req, res, next) {
     } else { // add user to the team
       const user = await getUser(req.team.token, user_id);
 
-      debug(user);
-
       req.user = await team.createUser({
         slackId: user.id,
         displayName: user.profile.display_name_normalized,
@@ -33,12 +39,12 @@ async function getUserMiddleware(req, res, next) {
 
       next();
     }
-  } catch (e) {
-    console.log(e);
-    res.error('failed to get user/create user');
+  } else {
+    // TODO: replace with error block
+    res.error('team not found');
   }
 }
 
 module.exports = {
-  getUserMiddleware,
-};
+  getEventUserAndTeam,
+}

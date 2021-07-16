@@ -10,6 +10,7 @@ module.exports = {
       slackId: "U01QWBBE4SZ",
       displayName: "Diego del Valle",
       username: "diego.valle",
+      profilePicture: "https://secure.gravatar.com/avatar/6003a102490a5289c907815a946ab5e0.jpg?s=24&d=https%3A%2F%2Fa.slack-edge.com%2Fdf10d%2Fimg%2Favatars%2Fava_0020-24.png",
       isAdmin: true,
       TeamId: team.id,
       createdAt: new Date(),

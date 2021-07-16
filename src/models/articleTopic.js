@@ -1,34 +1,31 @@
+const { Model } = require('sequelize');
+
+class ArticleTopic extends Model {}
+
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('ArticleTopic', {
+  return ArticleTopic.init({
     // Model attributes are defined here
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     approved: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false,
     },
-    createdBy: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
-    },
-    reviewedBy: {
-      type: DataTypes.UUID,
-      allowNull: true,
-      references: {
-        model: 'Users',
-        key: 'id',
-      },
-    },
     reviewedAt: {
-      type: DataTypes.TIME,
+      type: DataTypes.DATE,
       allowNull: true,
     },
     comment: {
       type: DataTypes.STRING,
       allowNull: true,
-    }
-  }, { timestamps: true });
+    },
+  }, {
+    timestamps: true,
+    sequelize,
+    modelName: 'ArticleTopic',
+  });
 }

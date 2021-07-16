@@ -1,6 +1,6 @@
 const { Team } = require('../models');
 
-async function getTeam(req, res, next) {
+async function getTeamMiddleware(req, res, next) {
   const { team_id } = req.body;
 
   const team = await Team.findOne({
@@ -18,5 +18,5 @@ async function getTeam(req, res, next) {
 }
 
 module.exports = {
-  getTeam,
+  getTeamMiddleware,
 }

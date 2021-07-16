@@ -1,5 +1,9 @@
+const { Model } = require('sequelize');
+
+class User extends Model {}
+
 module.exports = function (sequelize, DataTypes) {
-  return sequelize.define('User', {
+  return User.init({
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -18,11 +22,17 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    profilePicture: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     isAdmin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
   }, {
+    sequelize,
+    modelName: 'User',
     timestamps: true,
     indexes: [
       { fields: ['slackId'], unique: true },
