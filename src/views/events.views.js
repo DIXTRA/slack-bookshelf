@@ -1,12 +1,12 @@
-function noApprovalRequests () {
+function noApprovalRequests() {
   return [
     {
-			"type": "header",
-			"text": {
-				"type": "plain_text",
-				"text": "Articles Awaiting Approval",
-			}
-		},
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Articles Awaiting Approval",
+      }
+    },
     {
       "type": "section",
       "text": {
@@ -99,18 +99,18 @@ function listApprovalRequests(approvalRequests = []) {
 
   blocks.unshift(
     {
-			"type": "header",
-			"text": {
-				"type": "plain_text",
-				"text": "Articles Awaiting Approval",
-			}
-		},
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Articles Awaiting Approval",
+      }
+    },
   );
 
   return blocks;
 }
 
-function listSavedPosts (savedPosts = []) {
+function listSavedPosts(savedPosts = []) {
   let blocks = [];
 
   blocks = savedPosts.map((post) => [
@@ -133,12 +133,12 @@ function listSavedPosts (savedPosts = []) {
 
   blocks.unshift(
     {
-			"type": "header",
-			"text": {
-				"type": "plain_text",
-				"text": "Your saved articles",
-			}
-		},
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "Your saved articles",
+      }
+    },
   );
 
   return blocks;
