@@ -1,5 +1,6 @@
 const { User } = require('../models');
 const { getUser } = require('../helpers/slack.helper');
+const debug = require('debug')('slack-bookshelf:server');
 
 async function getUserMiddleware(req, res, next) {
   const { team } = req;
@@ -19,7 +20,8 @@ async function getUserMiddleware(req, res, next) {
       next();
     } else { // add user to the team
       const user = await getUser(req.team.token, user_id);
-      console.log(user);
+
+      debug(user);
 
       req.user = await team.createUser({
         slackId: user.id,

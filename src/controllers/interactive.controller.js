@@ -7,7 +7,7 @@ async function removeArticleTopic(articleTopicId) {
     const articleTopicObject = await ArticleTopic.findOne({ where: { id: articleTopicId } });
 
     if (articleTopicObject) {
-      const result = await articleTopicObject.destroy();
+      await articleTopicObject.destroy();
 
       return true;
     } else {
@@ -36,7 +36,6 @@ async function declineArticleTopic(articleTopicId, user) {
       return false;
     }
   } catch (ex) {
-    debugger;
     console.log(ex);
 
     return false;
@@ -66,18 +65,11 @@ async function approveArticleTopic(articleTopicId, user) {
 async function runInteractive(req, res) {
   const payload  = JSON.parse(req.body.payload);
   const { type } = payload
-
-  debug("payload: " + JSON.stringify(payload));
-
   const { user, team } = req;
-
-  console.log(user, team, payload);
 
   switch(type) {
     case 'block_actions':
       const blockActionPromises = payload.actions.map(action => {
-        console.log(action);
-
         return new Promise(async (resolve, reject) => {
           try {
             debug("action: " + JSON.stringify(action));
@@ -126,6 +118,7 @@ async function runInteractive(req, res) {
           } catch (ex) {
             console.log("Exception occured");
             console.log(ex);
+
             reject(ex);
           }
         });
