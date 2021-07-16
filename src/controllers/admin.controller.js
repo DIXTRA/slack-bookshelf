@@ -103,6 +103,9 @@ async function removeTopicLink(req, res) {
   const commandParams = getCommandParams(text, 2);
 
   try {
+    if(!user.isAdmin){
+      throw new Error(req.__('errors.admin_only_error'));
+    }
     if (!commandParams)
       throw new Error(req.__('errors.number_of_params_error'));
     const [topicName, postUrl] = commandParams;
@@ -123,7 +126,7 @@ async function removeTopicLink(req, res) {
     }
 
     await ArticleTopic.deleteOne({
-      where: { createdBy: user.id, TopicId: topic.id, ArticleId: post.id },
+      where: { TopicId: topic.id, ArticleId: post.id },
     });
 
     res.renderBlocks([plainText(req.__('articles.remove_to_topic_success'))]);
