@@ -32,39 +32,29 @@ function actions(elements = []) {
   return { type: 'actions', elements};
 }
 
-function action(text, value, type = "button", style = 'primary') {
-  return { type, text, style, value};
-}
-
-function text(text, type = 'mrkdwn', emoji = true) {
-  return { type, text, emoji};
+function action(text, value, action_id, style = 'primary',type = "button" ) {
+  return { type, text, style, value, action_id};
 }
 
 /*
   Plain text UI block
 */
-function plainText(text, type) {
-  return block(
-    {
-      type: 'plain_text',
-      emoji: true,
-      text,
-    },
-    type
-  );
+function plainText(text, emoji = true) {
+  return {
+    type: 'plain_text',
+    emoji: emoji,
+    text,
+  };
 }
 
 /*
   Markdown UI block
 */
-function markdown(text, type) {
-  return block(
-    {
+function markdown(text) {
+  return {
       type: 'mrkdwn',
       text,
-    },
-    type
-  );
+    };
 }
 
 /*
@@ -101,5 +91,5 @@ module.exports = {
   context,
   actions,
   action,
-  text
+  block
 };

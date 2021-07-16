@@ -1,5 +1,6 @@
-const { Article, Topic, ArticleTopic } = require('../models');
+const { Topic, ArticleTopic } = require('../models');
 const commonViews = require('../views/common.views');
+const articlesViews = require('../views/articles.views');
 const blocksViews = require('../views/blocks.views');
 const articlesViews = require('../views/articles.views');
 const { topicExists } = require('../helpers/topics.helper');
@@ -43,9 +44,9 @@ async function addTopic(req, res) {
       const newTopic = await team.createTopic({ name, createdBy: user.id });
 
       if (newTopic) {
-        const message = blocksViews.plainText(
+        const message = blocksViews.block(blocksViews.plainText(
           req.__('topics.create_success', { name })
-        );
+        ));
 
         res.renderBlocks([message], true);
       } else
@@ -101,15 +102,23 @@ async function listTopicLinks(req, res) {
     const topic = await Topic.findOne({
       where: { name: topicName, TeamId: team.id },
     });
-    if (!topic)
+    const articlesTopic = await ArticleTopic.findAll({
+      where: { approved: false, TopicId: topic.id },
+      /*
+      TODO: 
+      include: [
+        { model: User, as: 'createdBy' },
+        { model: Article, as: 'article' },
+      ],*/
+    });
+    if (!topic || !articlesTopic)
       throw new Error(
         req.__('errors.topic_not_found_error', { name: topicName })
       );
-    const result = await topic.getArticles();
-    if (result.length > 0) {
+    if (articlesTopic.length == 0) {
       throw new Error(req.__('errors.list_posts_error'));
     } else {
-      res.renderBlocks(commonViews.listTopicLinks(result));
+      res.renderBlocks(await articlesViews.listTopicArticles(req, articlesTopic));
     }
   } catch (e) {
     res.renderSlack(commonViews.commandError(e.message));

@@ -4,7 +4,7 @@ const { getCommandParams } = require('../helpers/commands.helper');
 const { topicExists } = require('../helpers/topics.helper');
 const { getInfo } = require('../helpers/medium.helper');
 
-const { plainText } = require('../views/blocks.views');
+const { plainText, block } = require('../views/blocks.views');
 const commonViews = require('../views/common.views');
 
 const debug = require('debug')('slack-bookshelf:server');
@@ -55,8 +55,14 @@ async function addPostToTopic(req, res) {
         description,
         image: image[0],
         author: authorName,
-        keywords: keywords.join(','),
+        keywords: keywords?.join(',') ?? '',
       });
+    } else {
+      let articleTopic = await ArticleTopic.findOne({ where: { TopicId: topic.id, ArticleId: post.id, } });
+      if (!articleTopic) {
+        res.renderBlocks([bloc(lainText(req.__('articles.add_to_topic_success')))]);
+        return;
+      }
     }
 
     if (!post) throw new Error(req.__('errors.create_post_error'));
@@ -67,10 +73,10 @@ async function addPostToTopic(req, res) {
       ArticleId: post.id,
     });
 
-    res.renderBlocks([plainText(req.__('articles.add_to_topic_success'))]);
+    res.renderBlocks([block(plainText(req.__('articles.add_to_topic_success')))]);
   } catch (e) {
     debug(e);
-    res.renderSlack(commonViews.commandError(e));
+    res.renderSlack(commonViews.commandError(e.message));
   }
 }
 

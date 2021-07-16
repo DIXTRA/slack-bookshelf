@@ -1,6 +1,7 @@
 const debug = require('debug')('slack-bookshelf:server');
 
 const { COMMANDS, COMMAND_NAMES } = require('./commands');
+const commonViews = require('../views/common.views');
 
 /*
   Handle incoming commands
@@ -16,7 +17,7 @@ function runCommand(req, res) {
 
     COMMANDS[command](req, res);
     // res.success();
-  } else res.error('Command not found');
+  } else res.renderSlack(commonViews.commandError(req.__('errors.command_not_found')));
 }
 
 module.exports = { runCommand };
