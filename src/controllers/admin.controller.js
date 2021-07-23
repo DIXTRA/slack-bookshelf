@@ -98,4 +98,42 @@ async function listTopicLinks(req, res) {
   }
 }
 
-module.exports = { addTopic, listTopicLinks };
+async function removeTopicLink(req, res) {
+  const { text, team, user } = req;
+  const commandParams = getCommandParams(text, 2);
+
+  try {
+    if(!user.isAdmin){
+      throw new Error(req.__('errors.admin_only_error'));
+    }
+    if (!commandParams)
+      throw new Error(req.__('errors.number_of_params_error'));
+    const [topicName, postUrl] = commandParams;
+
+    const topic = await Topic.findOne({
+      where: { name: topicName, TeamId: team.id },
+    });
+
+    if (!topic)
+      throw new Error(
+        req.__('errors.topic_not_found_error', { name: topicName })
+      );
+
+    const post = await Article.findOne({ where: { url: postUrl } });
+
+    if (!post) {
+      throw new Error(req.__('errors.get_post_info_error'));
+    }
+
+    await ArticleTopic.deleteOne({
+      where: { TopicId: topic.id, ArticleId: post.id },
+    });
+
+    res.renderBlocks([plainText(req.__('articles.remove_to_topic_success'))]);
+  } catch (e) {
+    debug(e);
+    res.renderSlack(commonViews.commandError(e.message));
+  }
+}
+
+module.exports = { addTopic, listTopicLinks, removeTopicLink };
