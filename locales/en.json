@@ -21,6 +21,7 @@
 		"invalid_topic_name_error": "Invalid topic name '{{name}}'",
 		"list_posts_error": "Couldn't get article list",
 		"no_topics": "No topics were found",
+		"invalid_user_error": "Invalid user",
 		"command_not_found": "Command not found"
 	},
 	"articles": {
@@ -30,6 +31,7 @@
 	},
 	"topics": {
 		"create_success": "Topic '{{name}}' created successfully!",
-		"empty_message": "Topic '{{name}}' is empty"
+		"empty_message": "Topic '{{name}}' is empty",
+		"listing_articles_title": "Articles for topic '{{name}}':"
 	}
 }

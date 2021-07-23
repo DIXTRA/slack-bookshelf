@@ -17,23 +17,27 @@ function divider() {
 }
 
 function image(image_url, alt_text = 'image') {
-  return { type: 'image', image_url , alt_text};
+  return { type: 'image', image_url, alt_text };
 }
 
 function section(text) {
-  return { type: 'section', text};
+  return { type: 'section', text };
+}
+
+function header(text) {
+  return { type: 'header', text };
 }
 
 function sectionWithImage(text, image) {
-  return { type: 'section', text , accessory: image};
+  return { type: 'section', text, accessory: image };
 }
 
 function actions(elements = []) {
-  return { type: 'actions', elements};
+  return { type: 'actions', elements };
 }
 
-function action(text, value, action_id, style = 'primary',type = "button" ) {
-  return { type, text, style, value, action_id};
+function action(text, value, action_id, style = 'primary', type = 'button') {
+  return { type, text, style, value, action_id };
 }
 
 /*
@@ -52,9 +56,9 @@ function plainText(text, emoji = true) {
 */
 function markdown(text) {
   return {
-      type: 'mrkdwn',
-      text,
-    };
+    type: 'mrkdwn',
+    text,
+  };
 }
 
 /*
@@ -87,9 +91,10 @@ module.exports = {
   divider,
   image,
   section,
+  header,
   sectionWithImage,
   context,
   actions,
   action,
-  block
+  block,
 };

@@ -31,6 +31,7 @@
 	},
 	"topics": {
 		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!",
-		"empty_message": "El tópico '{{name}}' no contiene artículos"
+		"empty_message": "El tópico '{{name}}' no contiene artículos",
+		"listing_articles_title": "Artículos para el tópico '{{name}}':"
 	}
 }

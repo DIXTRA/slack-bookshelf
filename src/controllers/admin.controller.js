@@ -2,7 +2,6 @@ const { Topic, ArticleTopic } = require('../models');
 const commonViews = require('../views/common.views');
 const articlesViews = require('../views/articles.views');
 const blocksViews = require('../views/blocks.views');
-const articlesViews = require('../views/articles.views');
 const { topicExists } = require('../helpers/topics.helper');
 const { getCommandParams } = require('../helpers/commands.helper');
 const { validName } = require('../helpers/common.helper');
