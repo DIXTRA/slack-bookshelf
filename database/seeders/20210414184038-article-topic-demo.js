@@ -8,9 +8,10 @@ module.exports = {
     const article = await Article.findOne();
 
     return queryInterface.bulkInsert('ArticleTopics', [{
+      id: "0395e549-8258-425c-99e8-bd20a1d8abe3",
       approved: true,
-      createdBy: user.id,
-      reviewedBy: user.id,
+      CreatedById: user.id,
+      ReviewedById: user.id,
       reviewedAt: new Date(),
       comment: 'todo ok',
       createdAt: new Date(),

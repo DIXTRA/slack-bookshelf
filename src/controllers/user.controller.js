@@ -22,17 +22,12 @@ async function savePost(req, res) {
     let post = await Article.findOne({ where: { url: postUrl } });
 
     if (!post) {
-      const info = await getInfo(postUrl);
-      debug('INFO:', { info });
-      if (!info) throw new Error(req.__('errors.get_post_info_error'));
+      const postInfo = await getInfo(postUrl);
+      debug('INFO:', { postInfo });
 
-      const {
-        name,
-        description,
-        image,
-        author: { name: authorName },
-        keywords,
-      } = info;
+      if (!postInfo) throw new Error(req.__('errors.get_post_info_error'));
+
+      const { name, description, image, authorName, keywords } = postInfo;
 
       post = await Article.create({
         title: name,
@@ -40,7 +35,7 @@ async function savePost(req, res) {
         description,
         image: image[0],
         author: authorName,
-        keywords: keywords.join(','),
+        keywords: (keywords || []).join(','),
       });
     }
 

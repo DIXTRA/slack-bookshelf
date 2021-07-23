@@ -1,4 +1,4 @@
-const { Topic, ArticleTopic } = require('../models');
+const { Topic, ArticleTopic, User, Article } = require('../models');
 const commonViews = require('../views/common.views');
 const articlesViews = require('../views/articles.views');
 const blocksViews = require('../views/blocks.views');
@@ -43,9 +43,9 @@ async function addTopic(req, res) {
       const newTopic = await team.createTopic({ name, createdBy: user.id });
 
       if (newTopic) {
-        const message = blocksViews.block(blocksViews.plainText(
-          req.__('topics.create_success', { name })
-        ));
+        const message = blocksViews.block(
+          blocksViews.plainText(req.__('topics.create_success', { name }))
+        );
 
         res.renderBlocks([message], true);
       } else
@@ -101,27 +101,70 @@ async function listTopicLinks(req, res) {
     const topic = await Topic.findOne({
       where: { name: topicName, TeamId: team.id },
     });
-    const articlesTopic = await ArticleTopic.findAll({
-      where: { approved: false, TopicId: topic.id },
-      /*
-      TODO: 
-      include: [
-        { model: User, as: 'createdBy' },
-        { model: Article, as: 'article' },
-      ],*/
-    });
-    if (!topic || !articlesTopic)
+    if (!topic) {
       throw new Error(
         req.__('errors.topic_not_found_error', { name: topicName })
       );
-    if (articlesTopic.length == 0) {
-      throw new Error(req.__('errors.list_posts_error'));
+    }
+    const approvedArticles = await ArticleTopic.findAll({
+      where: { TopicId: topic.id, approved: true },
+      include: [
+        { model: User, as: 'createdBy' },
+        { model: Article, as: 'article' },
+      ],
+    });
+
+    const posts = approvedArticles.map(
+      (approvedArticle) => approvedArticle.article
+    );
+
+    if (posts.length > 0) {
+      res.renderBlocks(commonViews.listTopicLinks(posts));
+      // res.renderBlocks(await articlesViews.listTopicArticles(req, articlesTopic)); // falta convertir la otra func a que use posts?
     } else {
-      res.renderBlocks(await articlesViews.listTopicArticles(req, articlesTopic));
+      throw new Error(req.__('errors.list_posts_error'));
     }
   } catch (e) {
     res.renderSlack(commonViews.commandError(e.message));
   }
 }
 
-module.exports = { addTopic, listTopicLinks, shareTopic };
+async function removeTopicLink(req, res) {
+  const { text, team, user } = req;
+  const commandParams = getCommandParams(text, 2);
+
+  try {
+    if (!user.isAdmin) {
+      throw new Error(req.__('errors.admin_only_error'));
+    }
+    if (!commandParams)
+      throw new Error(req.__('errors.number_of_params_error'));
+    const [topicName, postUrl] = commandParams;
+
+    const topic = await Topic.findOne({
+      where: { name: topicName, TeamId: team.id },
+    });
+
+    if (!topic)
+      throw new Error(
+        req.__('errors.topic_not_found_error', { name: topicName })
+      );
+
+    const post = await Article.findOne({ where: { url: postUrl } });
+
+    if (!post) {
+      throw new Error(req.__('errors.get_post_info_error'));
+    }
+
+    await ArticleTopic.deleteOne({
+      where: { TopicId: topic.id, ArticleId: post.id },
+    });
+
+    res.renderBlocks([plainText(req.__('articles.remove_to_topic_success'))]);
+  } catch (e) {
+    debug(e);
+    res.renderSlack(commonViews.commandError(e.message));
+  }
+}
+
+module.exports = { addTopic, listTopicLinks, removeTopicLink, shareTopic };
