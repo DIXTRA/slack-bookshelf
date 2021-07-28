@@ -1,29 +1,19 @@
 const blocks = require('./blocks.views');
 const common = require('./common.views');
 const debug = require('debug')('slack-bookshelf:server');
-const { Article, User } = require('../models');
 
-async function listTopicArticles(req, articlesTopic = [], actions = []) {
-  const articlesView = await Promise.all(
-    articlesTopic.map(async (articleTopic) => {
-      let article = await Article.findOne({
-        where: { id: articleTopic.ArticleId },
-      });
-      let user = await User.findOne({
-        where: { id: articleTopic.createdBy },
-      });
-      return renderAticle(req, article, actions, user);
-    })
+function listTopicArticles(req, topicName, articlesTopic = [], actions = []) {
+  const articlesView = articlesTopic.map(({ article, createdBy }) =>
+    renderArticle(req, article, actions, createdBy)
   );
-
   return [
-    blocks.header(req.__('topics.listing_articles_title')),
+    blocks.header(req.__('topics.listing_articles_title', { name: topicName })),
     blocks.divider(),
     ...articlesView,
   ];
 }
 
-function renderAticle(req, article, actions = [], user) {
+function renderArticle(req, article, actions = [], user) {
   let userName = blocks.markdown(user?.displayName);
   let userImage = blocks.image(
     'https://api.slack.com/img/blocks/bkb_template_images/profile_3.png'

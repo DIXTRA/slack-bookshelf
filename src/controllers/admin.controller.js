@@ -76,12 +76,23 @@ async function shareTopic(req, res) {
     if (!topic)
       throw new Error(req.__('errors.topic_not_found_error', { name }));
 
-    const articles = await topic.getArticles();
+    // get approved articleTopics (move to method?)
+    const articleTopics = await ArticleTopic.findAll({
+      where: { TopicId: topic.id, approved: true },
+      include: [
+        { model: User, as: 'createdBy' },
+        { model: Article, as: 'article' },
+      ],
+    });
 
-    if (!articles.length)
+    if (!articleTopics.length)
       res.send(`*${req.__('topics.empty_message', { name })}*`);
     else {
-      const viewBlocks = articlesViews.listTopicArticles(name, articles);
+      const viewBlocks = articlesViews.listTopicArticles(
+        req,
+        name,
+        articleTopics
+      );
       res.renderBlocks(viewBlocks, true);
     }
   } catch (e) {
@@ -106,7 +117,7 @@ async function listTopicLinks(req, res) {
         req.__('errors.topic_not_found_error', { name: topicName })
       );
     }
-    const approvedArticles = await ArticleTopic.findAll({
+    const articleTopics = await ArticleTopic.findAll({
       where: { TopicId: topic.id, approved: true },
       include: [
         { model: User, as: 'createdBy' },
@@ -114,13 +125,10 @@ async function listTopicLinks(req, res) {
       ],
     });
 
-    const posts = approvedArticles.map(
-      (approvedArticle) => approvedArticle.article
-    );
-
-    if (posts.length > 0) {
-      res.renderBlocks(commonViews.listTopicLinks(posts));
-      // res.renderBlocks(await articlesViews.listTopicArticles(req, articlesTopic)); // falta convertir la otra func a que use posts?
+    if (articleTopics.length) {
+      res.renderBlocks(
+        articlesViews.listTopicArticles(req, topicName, articlesTopic)
+      );
     } else {
       throw new Error(req.__('errors.list_posts_error'));
     }
