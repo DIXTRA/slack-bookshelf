@@ -1,10 +1,13 @@
+const { Topic, ArticleTopic, User, Article } = require('../models');
 const commonViews = require('../views/common.views');
+const articlesViews = require('../views/articles.views');
 const blocksViews = require('../views/blocks.views');
 const { topicExists } = require('../helpers/topics.helper');
 const { getCommandParams } = require('../helpers/commands.helper');
-const { Topic, ArticleTopic, User, Article } = require('../models');
-
 const { validName } = require('../helpers/common.helper');
+const { addAppMetadata } = require('@slack/web-api');
+
+const debug = require('debug')('slack-bookshelf:server');
 
 /*
   Controller para acciones de los admins (crear topics, aprobar posts, etc)
@@ -40,8 +43,8 @@ async function addTopic(req, res) {
       const newTopic = await team.createTopic({ name, createdBy: user.id });
 
       if (newTopic) {
-        const message = blocksViews.plainText(
-          req.__('topics.create_success', { name })
+        const message = blocksViews.block(
+          blocksViews.plainText(req.__('topics.create_success', { name }))
         );
 
         res.renderBlocks([message], true);
@@ -61,6 +64,43 @@ async function addTopic(req, res) {
   }
 }
 
+async function shareTopic(req, res) {
+  const { text: name, team, user } = req;
+
+  if (adminOnlyError(req, res)) return;
+
+  // const commandParams = getCommandParams(text, 1);
+  try {
+    const topic = await Topic.findOne({ where: { name, TeamId: team.id } });
+
+    if (!topic)
+      throw new Error(req.__('errors.topic_not_found_error', { name }));
+
+    // get approved articleTopics (move to method?)
+    const articleTopics = await ArticleTopic.findAll({
+      where: { TopicId: topic.id, approved: true },
+      include: [
+        { model: User, as: 'createdBy' },
+        { model: Article, as: 'article' },
+      ],
+    });
+
+    if (!articleTopics.length)
+      res.send(`*${req.__('topics.empty_message', { name })}*`);
+    else {
+      const viewBlocks = articlesViews.listTopicArticles(
+        req,
+        name,
+        articleTopics
+      );
+      res.renderBlocks(viewBlocks, true);
+    }
+  } catch (e) {
+    debug(e);
+    res.renderSlack(commonViews.commandError(e.message));
+  }
+}
+
 async function listTopicLinks(req, res) {
   const { text, team } = req;
 
@@ -77,8 +117,7 @@ async function listTopicLinks(req, res) {
         req.__('errors.topic_not_found_error', { name: topicName })
       );
     }
-
-    const approvedArticles = await ArticleTopic.findAll({
+    const articleTopics = await ArticleTopic.findAll({
       where: { TopicId: topic.id, approved: true },
       include: [
         { model: User, as: 'createdBy' },
@@ -86,10 +125,10 @@ async function listTopicLinks(req, res) {
       ],
     });
 
-    const posts = approvedArticles.map(approvedArticle => approvedArticle.article);
-
-    if (posts.length > 0) {
-      res.renderBlocks(commonViews.listTopicLinks(posts));
+    if (articleTopics.length) {
+      res.renderBlocks(
+        articlesViews.listTopicArticles(req, topicName, articlesTopic)
+      );
     } else {
       throw new Error(req.__('errors.list_posts_error'));
     }
@@ -103,7 +142,7 @@ async function removeTopicLink(req, res) {
   const commandParams = getCommandParams(text, 2);
 
   try {
-    if(!user.isAdmin){
+    if (!user.isAdmin) {
       throw new Error(req.__('errors.admin_only_error'));
     }
     if (!commandParams)
@@ -136,4 +175,4 @@ async function removeTopicLink(req, res) {
   }
 }
 
-module.exports = { addTopic, listTopicLinks, removeTopicLink };
+module.exports = { addTopic, listTopicLinks, removeTopicLink, shareTopic };

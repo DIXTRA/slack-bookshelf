@@ -11,6 +11,7 @@ const COMMANDS = {
   list: adminController.listTopicLinks,
   create_topic: adminController.addTopic,
   add: workspaceController.addPostToTopic,
+  share: adminController.shareTopic,
 };
 
 const COMMAND_NAMES = Object.keys(COMMANDS);

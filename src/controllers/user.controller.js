@@ -3,7 +3,7 @@ const commonViews = require('../views/common.views');
 const { getCommandParams } = require('../helpers/commands.helper');
 const debug = require('debug')('slack-bookshelf:server');
 const { getInfo } = require('../helpers/medium.helper');
-const { plainText } = require('../views/blocks.views');
+const { plainText, block } = require('../views/blocks.views');
 
 /*
   Acciones del usuario sobre su coleccion personal de posts
@@ -43,7 +43,7 @@ async function savePost(req, res) {
 
     await post.addUser(user);
 
-    res.renderBlocks([plainText(req.__('articles.add_success'))]);
+    res.renderBlocks([block(plainText(req.__('articles.add_success')))]);
   } catch (e) {
     debug(e);
     res.renderSlack(commonViews.commandError(e.message));
