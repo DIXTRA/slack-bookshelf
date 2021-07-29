@@ -127,7 +127,7 @@ async function listTopicLinks(req, res) {
 
     if (articleTopics.length) {
       res.renderBlocks(
-        articlesViews.listTopicArticles(req, topicName, articlesTopic)
+        articlesViews.listTopicArticles(req, topicName, articleTopics)
       );
     } else {
       throw new Error(req.__('errors.list_posts_error'));

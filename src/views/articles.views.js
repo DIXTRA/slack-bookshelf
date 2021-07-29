@@ -9,7 +9,7 @@ function listTopicArticles(req, topicName, articlesTopic = [], actions = []) {
   return [
     blocks.header(req.__('topics.listing_articles_title', { name: topicName })),
     blocks.divider(),
-    ...articlesView,
+    ...articlesView.flat(),
   ];
 }
 

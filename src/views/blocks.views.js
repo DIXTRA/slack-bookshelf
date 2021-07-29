@@ -25,7 +25,7 @@ function section(text) {
 }
 
 function header(text) {
-  return { type: 'header', text };
+  return { type: 'header', text: plainText(text) };
 }
 
 function sectionWithImage(text, image) {

@@ -54,8 +54,8 @@ async function addPostToTopic(req, res) {
       });
     } else {
       let articleTopic = await ArticleTopic.findOne({ where: { TopicId: topic.id, ArticleId: post.id, } });
-      if (!articleTopic) {
-        res.renderBlocks([bloc(lainText(req.__('articles.add_to_topic_success')))]);
+      if (articleTopic) {
+        res.renderBlocks([block(plainText(req.__('articles.add_to_topic_success')))]);
         return;
       }
     }
