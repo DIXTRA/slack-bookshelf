@@ -27,6 +27,7 @@
 	"articles": {
 		"add_to_topic_success": "Article added successfully to topic, an admin will review and complete the process",
 		"add_success": "Article added successfully",
+		"processing_article": "Processing article, we will let you know when it's ready",
 		"submitted_by": "Submitted by"
 	},
 	"topics": {
