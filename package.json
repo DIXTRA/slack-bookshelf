@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=slack-bookshelf:* nodemon --inspect=0.0.0.0:9229 app.js",
+    "start": "node app.js",
+    "dev": "DEBUG=slack-bookshelf:* nodemon --inspect=0.0.0.0:9229 app.js",
     "setup": "npx sequelize-cli db:create && node ./scripts/sync_db.js && npx sequelize-cli db:seed:all",
     "sync_db": "node ./scripts/sync_db.js && npx sequelize-cli db:seed:all"
   },

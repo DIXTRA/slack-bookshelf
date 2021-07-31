@@ -1,5 +1,6 @@
 const { WebClient } = require('@slack/web-api');
 const { Team } = require('../models');
+const { getUser } = require('../helpers/slack.helper');
 
 async function appInstall (req, res) {
   const { code } = req.query;
@@ -23,15 +24,13 @@ async function appInstall (req, res) {
     });
 
     // TODO: replace with api helper
-    const { user } = await slackClient.users.info({
-      token: newTeam.token,
-      user: authed_user.id,
-    });
+    const user = await getUser(newTeam.token, authed_user.id);
 
     // ref: https://sequelize.org/master/manual/assocs.html#special-methods-mixins-added-to-instances
     await newTeam.createUser({
       slackId: user.id,
       displayName: user.profile.display_name_normalized,
+      profilePicture: user.profile.image_24,
       username: user.name,
       isAdmin: user.is_admin || user.is_owner,
     });
