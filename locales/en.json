@@ -22,6 +22,7 @@
 		"list_posts_error": "Couldn't get article list",
 		"no_topics": "No topics were found",
 		"invalid_user_error": "Invalid user",
+		"user_not_found_error": "User not found",
 		"command_not_found": "Command not found"
 	},
 	"articles": {

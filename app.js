@@ -1,5 +1,4 @@
-require('./src/models');
-const { I18n } = require('i18n');
+const i18n = require('i18n');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -8,7 +7,7 @@ const debug = require('debug')('slack-bookshelf:server');
 const router = require('./src/routes');
 const viewBase = require('./src/views/blocks.views').base;
 
-const i18n = new I18n({
+i18n.configure({
   locales: ['en', 'es'],
   defaultLocale: 'en',
   directory: path.join(__dirname, 'locales'),

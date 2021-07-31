@@ -4,15 +4,16 @@ const { getCommandParams } = require('../helpers/commands.helper');
 const debug = require('debug')('slack-bookshelf:server');
 const { getInfo } = require('../helpers/medium.helper');
 const { plainText, block } = require('../views/blocks.views');
-const createPostJob = require('../jobs/postJob');
+const { saveUserArticleJob } = require('../jobs/articles/articleJobs');
 
 /*
   Acciones del usuario sobre su coleccion personal de posts
 */
 
 async function savePost(req, res) {
-
+  debugger;
   const { text, team, user } = req;
+  const responseUrl = req.body.response_url;
   const commandParams = getCommandParams(text, 1);
 
   try {
@@ -23,7 +24,7 @@ async function savePost(req, res) {
     let post = await Article.findOne({ where: { url: postUrl } });
 
     if (!post) {
-      createPostJob({ url: postUrl, user });
+      saveUserArticleJob(postUrl, user.id, { locale: 'en', responseUrl });
 
       return res.renderBlocks([block(plainText(req.__('articles.processing_article')))]);
     }
