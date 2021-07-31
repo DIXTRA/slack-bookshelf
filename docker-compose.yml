@@ -9,7 +9,7 @@ services:
       - POSTGRES_PASSWORD=postgres
   server:
     build: .
-    command: npm start
+    command: npm run dev
     depends_on:
       - db
     ports:
