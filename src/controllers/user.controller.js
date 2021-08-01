@@ -11,7 +11,6 @@ const { saveUserArticleJob } = require('../jobs/articles/articleJobs');
 */
 
 async function savePost(req, res) {
-  debugger;
   const { text, team, user } = req;
   const responseUrl = req.body.response_url;
   const commandParams = getCommandParams(text, 1);
