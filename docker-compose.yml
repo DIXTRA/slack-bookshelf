@@ -28,7 +28,7 @@ services:
       - PORT=3000
       - NODE_ENV=development
       - DATABASE_URL=postgres://postgres:postgres@db:5432/slack_bookshelf
-      - REDIS=redis://redis:6379
+      - REDIS_URL=redis://redis:6379
     stdin_open: true
     env_file:
       - .env
