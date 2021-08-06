@@ -1,6 +1,6 @@
 const Queue = require('bull');
 
-const articlesQueue = new Queue('Articles Queue', process.env.REDIS_URI, { });
+const articlesQueue = new Queue('Articles Queue', process.env.REDIS, { });
 
 articlesQueue.process(__dirname + '/addArticleProcessor.js');
 
