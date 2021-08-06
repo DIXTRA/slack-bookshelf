@@ -23,7 +23,6 @@ async function appInstall (req, res) {
       token: access_token,
     });
 
-    // TODO: replace with api helper
     const user = await getUser(newTeam.token, authed_user.id);
 
     // ref: https://sequelize.org/master/manual/assocs.html#special-methods-mixins-added-to-instances

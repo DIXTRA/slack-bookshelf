@@ -6,6 +6,7 @@ const { getInfo } = require('../helpers/medium.helper');
 
 const { plainText, block } = require('../views/blocks.views');
 const commonViews = require('../views/common.views');
+const { saveTopicArticleJob } = require('../jobs/articles/articleJobs');
 
 const debug = require('debug')('slack-bookshelf:server');
 
@@ -18,6 +19,7 @@ const debug = require('debug')('slack-bookshelf:server');
 
 async function addPostToTopic(req, res) {
   const { text, team, user } = req;
+  const responseUrl = req.body.response_url;
   const commandParams = getCommandParams(text, 2);
 
   try {
@@ -37,26 +39,14 @@ async function addPostToTopic(req, res) {
     let post = await Article.findOne({ where: { url: postUrl } });
 
     if (!post) {
-      const postInfo = await getInfo(postUrl);
-      debug('INFO:', { postInfo });
+      saveTopicArticleJob(postUrl, user.id, topic.id, { locale: 'en', responseUrl });
 
-      if (!postInfo) throw new Error(req.__('errors.get_post_info_error'));
-
-      const { name, description, image, authorName, keywords } = postInfo;
-
-      post = await Article.create({
-        title: name,
-        url: postUrl,
-        description,
-        image: image[0],
-        author: authorName,
-        keywords: keywords?.join(',') ?? '',
-      });
+      return res.renderBlocks([block(plainText(req.__('articles.processing_article')))]);
     } else {
       let articleTopic = await ArticleTopic.findOne({ where: { TopicId: topic.id, ArticleId: post.id, } });
+
       if (articleTopic) {
-        res.renderBlocks([block(plainText(req.__('articles.add_to_topic_success')))]);
-        return;
+        return res.renderBlocks([block(plainText(req.__('articles.add_to_topic_success')))]);
       }
     }
 

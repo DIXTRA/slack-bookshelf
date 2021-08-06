@@ -7,11 +7,18 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+  redis:
+    image: redis:6.2.4
+    ports:
+      - "6379:6379"
+    expose:
+      - 6379
   server:
     build: .
     command: npm run dev
     depends_on:
       - db
+      - redis
     ports:
       - "3000:3000"
       - "9229:9229"
@@ -21,7 +28,10 @@ services:
       - PORT=3000
       - NODE_ENV=development
       - DATABASE_URL=postgres://postgres:postgres@db:5432/slack_bookshelf
+      - REDIS_URI=redis://redis:6379
     stdin_open: true
+    env_file:
+      - .env
     volumes:
       - .:/usr/src/app
       - ./node_modules:/usr/src/app/node_modules

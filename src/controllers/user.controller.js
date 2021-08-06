@@ -4,14 +4,15 @@ const { getCommandParams } = require('../helpers/commands.helper');
 const debug = require('debug')('slack-bookshelf:server');
 const { getInfo } = require('../helpers/medium.helper');
 const { plainText, block } = require('../views/blocks.views');
+const { saveUserArticleJob } = require('../jobs/articles/articleJobs');
 
 /*
   Acciones del usuario sobre su coleccion personal de posts
 */
 
 async function savePost(req, res) {
-
   const { text, team, user } = req;
+  const responseUrl = req.body.response_url;
   const commandParams = getCommandParams(text, 1);
 
   try {
@@ -22,24 +23,10 @@ async function savePost(req, res) {
     let post = await Article.findOne({ where: { url: postUrl } });
 
     if (!post) {
-      const postInfo = await getInfo(postUrl);
-      debug('INFO:', { postInfo });
+      saveUserArticleJob(postUrl, user.id, { locale: 'en', responseUrl });
 
-      if (!postInfo) throw new Error(req.__('errors.get_post_info_error'));
-
-      const { name, description, image, authorName, keywords } = postInfo;
-
-      post = await Article.create({
-        title: name,
-        url: postUrl,
-        description,
-        image: image[0],
-        author: authorName,
-        keywords: (keywords || []).join(','),
-      });
+      return res.renderBlocks([block(plainText(req.__('articles.processing_article')))]);
     }
-
-    if (!post) throw new Error(req.__('errors.create_post_error'));
 
     await post.addUser(user);
 
