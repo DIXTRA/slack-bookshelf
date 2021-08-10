@@ -22,16 +22,25 @@
 		"list_posts_error": "No se logró obtener la lista de artículos",
 		"no_topics": "No se encontraron tópicos",
 		"invalid_user_error": "Usuario inválido",
-		"command_not_found": "Comando no encontrado"
+		"command_not_found": "Comando no encontrado",
+		"remove_article_error": "Error al remover el artículo",
+		"not_permitted": "No permitido"
 	},
 	"articles": {
 		"add_to_topic_success": "Se ha guardado el artículo exitosamente en el tópico, un administrador lo revisará para completar el proceso",
 		"add_success": "Se ha guardado el artículo exitosamente",
-		"submitted_by": "Enviado por"
+		"submitted_by": "Enviado por",
+		"remove_article": "¿Quires eliminar el artículo?",
+		"remove_article_success": "Artículo eliminado exitosamente"
 	},
 	"topics": {
 		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!",
 		"empty_message": "El tópico '{{name}}' no contiene artículos",
 		"listing_articles_title": "Artículos para el tópico '{{name}}':"
+	},
+	"commons":{
+		"yes": "Sí",
+		"no": "No",
+		"remove": "Eliminar"
 	}
 }

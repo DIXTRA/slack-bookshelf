@@ -23,17 +23,26 @@
 		"no_topics": "No topics were found",
 		"invalid_user_error": "Invalid user",
 		"user_not_found_error": "User not found",
-		"command_not_found": "Command not found"
+		"command_not_found": "Command not found",
+		"remove_article_error": "Error removing the article",
+		"not_permitted": "Not permitted"
 	},
 	"articles": {
 		"add_to_topic_success": "Article added successfully to topic, an admin will review and complete the process",
 		"add_success": "Article added successfully",
 		"processing_article": "Processing article, we will let you know when it's ready",
-		"submitted_by": "Submitted by"
+		"submitted_by": "Submitted by",
+		"remove_article": "Do you want to delete the article?",
+		"remove_article_success": "Article removed successfully"
 	},
 	"topics": {
 		"create_success": "Topic '{{name}}' created successfully!",
 		"empty_message": "Topic '{{name}}' is empty",
 		"listing_articles_title": "Articles for topic '{{name}}':"
+	},
+	"commons":{
+		"yes": "Yes",
+		"no": "No",
+		"remove": "Remove"
 	}
 }

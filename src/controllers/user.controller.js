@@ -5,6 +5,7 @@ const debug = require('debug')('slack-bookshelf:server');
 const { getInfo } = require('../helpers/medium.helper');
 const { plainText, block } = require('../views/blocks.views');
 const { saveUserArticleJob } = require('../jobs/articles/articleJobs');
+const articlesViews = require('../views/articles.views');
 
 /*
   Acciones del usuario sobre su coleccion personal de posts
@@ -43,9 +44,16 @@ async function savePost(req, res) {
 async function getUserSavedPosts(req, res) {
   try {
     const posts = await req.user.getArticles();
-
-    res.json(commonViews.listPosts(posts));
+    const articlesView = posts.map((article) => { 
+        return articlesViews.renderArticle(req, article)
+      } 
+    );
+  
+    res.renderBlocks(
+      [...articlesView.flat()]
+    );
   } catch (e) {
+    console.log(e);
     res.json(commonViews.commandError(req.__('errors.list_posts_error')));
   }
 }

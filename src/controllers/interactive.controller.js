@@ -1,6 +1,9 @@
 const debug = require('debug')('slack-bookshelf:server');
 const { ActionType } = require('../enum/action_type');
-const { ArticleTopic } = require('../models');
+const { ArticleTopic, Article } = require('../models');
+const articlesViews = require('../views/articles.views');
+const blocks = require('../views/blocks.views');
+const axios = require('axios');
 
 async function removeArticleTopic(articleTopicId) {
   try {
@@ -64,7 +67,7 @@ async function approveArticleTopic(articleTopicId, user) {
 
 async function runInteractive(req, res) {
   const payload  = JSON.parse(req.body.payload);
-  const { type } = payload
+  const { type, response_url } = payload
   const { user, team } = req;
 
   switch(type) {
@@ -112,6 +115,66 @@ async function runInteractive(req, res) {
                 } else {
                   return reject({ error: 'Not permitted', action });  
                 }
+              case ActionType.ListRemoveArticleTopic:
+                if (user.isAdmin) {
+                  const articleTopic = await ArticleTopic.findOne({
+                    where: { id: value, approved: true },
+                    include: [
+                      { model: Article, as: 'article' },
+                    ],
+                  });
+                  if(articleTopic){
+                    const {article } = articleTopic;
+                    const actions = [
+                      blocks.action(req.__('commons.yes'), value, ActionType.ListConfirmRemoveArticleTopic, "danger",),
+                      blocks.action(req.__('commons.no'), value, ActionType.ListDeclineRemoveArticleTopic,)
+                    ];
+                    await axios({
+                      method: 'post',
+                      url: response_url,
+                      data: {
+                        replace_original: true,
+                        blocks: 
+                        [...articlesViews.renderArticle(req, article, actions, null, "*" + req.__('articles.remove_article') + "*").flat()]
+                        ,
+                      },
+                    });
+                  }
+                } else {
+                  return reject({ error: req.__('errors.not_permitted'), action });  
+                }
+                break;
+              case ActionType.ListDeclineRemoveArticleTopic:
+                await axios({
+                  method: 'post',
+                  url: response_url,
+                  data: {
+                    delete_original: true,
+                  },
+                });
+                break;
+              case ActionType.ListConfirmRemoveArticleTopic:
+                let block = [];
+                if (user.isAdmin) {
+                  const removeResult = await removeArticleTopic(value);
+                  
+                  if (removeResult) {
+                    block = blocks.block(blocks.plainText(req.__('articles.remove_article_success')));
+                  } else {
+                    block = blocks.block(blocks.plainText(req.__('errors.remove_article_error')));
+                  }
+                } else {
+                  block = blocks.block(blocks.plainText(req.__('errors.not_permitted')));
+                }
+                await axios({
+                  method: 'post',
+                  url: response_url,
+                  data: {
+                    replace_original: true,
+                    blocks: [block],
+                  },
+                });
+                break;
               default:
                 return reject({ error: 'unhandled action', action });
             }
