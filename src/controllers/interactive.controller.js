@@ -126,32 +126,42 @@ async function runInteractive(req, res) {
                   if(articleTopic){
                     const {article } = articleTopic;
                     const actions = [
-                      blocks.action(req.__('commons.yes'), value, ActionType.ListConfirmRemoveArticleTopic, "danger",),
-                      blocks.action(req.__('commons.no'), value, ActionType.ListDeclineRemoveArticleTopic,)
+                      blocks.actionStructure(req.__('commons.delete'), value, ActionType.ListConfirmRemoveArticleTopic, "danger"),
+                      blocks.actionStructure(req.__('commons.cancel'), value, ActionType.ListDeclineRemoveArticleTopic, "default")
                     ];
-                    await axios({
-                      method: 'post',
-                      url: response_url,
-                      data: {
-                        replace_original: true,
-                        blocks: 
-                        [...articlesViews.renderArticle(req, article, actions, null, "*" + req.__('articles.remove_article') + "*").flat()]
-                        ,
-                      },
-                    });
+                    try {
+                      await axios({
+                        method: 'post',
+                        url: response_url,
+                        data: {
+                          replace_original: true,
+                          blocks: 
+                          [...articlesViews.renderArticle(req, article, actions, null, "*" + req.__('articles.remove_article') + "*").flat()]
+                          ,
+                        },
+                      });
+                      res.sendStatus(200);
+                    } catch (error) {
+                      res.sendStatus(500);
+                    }
+                    return;
                   }
-                } else {
-                  return reject({ error: req.__('errors.not_permitted'), action });  
                 }
+                res.sendStatus(404);
                 break;
               case ActionType.ListDeclineRemoveArticleTopic:
-                await axios({
-                  method: 'post',
-                  url: response_url,
-                  data: {
-                    delete_original: true,
-                  },
-                });
+                try {
+                  await axios({
+                    method: 'post',
+                    url: response_url,
+                    data: {
+                      delete_original: true,
+                    },
+                  });
+                  res.sendStatus(200);
+                } catch (error) {
+                  res.sendStatus(500);
+                }
                 break;
               case ActionType.ListConfirmRemoveArticleTopic:
                 let block = [];
@@ -166,14 +176,19 @@ async function runInteractive(req, res) {
                 } else {
                   block = blocks.block(blocks.plainText(req.__('errors.not_permitted')));
                 }
-                await axios({
-                  method: 'post',
-                  url: response_url,
-                  data: {
-                    replace_original: true,
-                    blocks: [block],
-                  },
-                });
+                try {
+                  await axios({
+                    method: 'post',
+                    url: response_url,
+                    data: {
+                      replace_original: true,
+                      blocks: [block],
+                    },
+                  });
+                  res.sendStatus(200);
+                } catch (error) {
+                  res.sendStatus(500);
+                }
                 break;
               default:
                 return reject({ error: 'unhandled action', action });

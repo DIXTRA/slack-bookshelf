@@ -41,8 +41,8 @@
 		"listing_articles_title": "Articles for topic '{{name}}':"
 	},
 	"commons":{
-		"yes": "Yes",
-		"no": "No",
-		"remove": "Remove"
+		"remove": "Remove",
+		"delete": "Delete",
+		"cancel": "Cancel"
 	}
 }

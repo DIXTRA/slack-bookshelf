@@ -39,8 +39,8 @@
 		"listing_articles_title": "Artículos para el tópico '{{name}}':"
 	},
 	"commons":{
-		"yes": "Sí",
-		"no": "No",
-		"remove": "Eliminar"
+		"remove": "Remover",
+		"delete": "Eliminar",
+		"cancel": "Cancelar"
 	}
 }

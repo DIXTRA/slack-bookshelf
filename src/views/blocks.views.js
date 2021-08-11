@@ -37,7 +37,15 @@ function actions(elements = []) {
 }
 
 function action(text, value, action_id, style = 'primary', type = 'button') {
-  return { type, text, style, value, action_id };
+  const action =  { type, text, value, action_id };
+  if(style !== "default"){
+    action.style = style
+  }
+  return action;
+}
+
+function actionStructure(text, value, action_id, style = 'primary', type = 'button') {
+  return  { type, text, value, style, action_id };
 }
 
 /*
@@ -96,5 +104,6 @@ module.exports = {
   context,
   actions,
   action,
+  actionStructure,
   block,
 };
