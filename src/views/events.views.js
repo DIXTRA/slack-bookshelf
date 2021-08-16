@@ -37,11 +37,11 @@ function listApprovalRequests(approvalRequests = []) {
           {
             "type": "image",
             "image_url": createdBy.profilePicture,
-            "alt_text": createdBy.displayName
+            "alt_text": createdBy.displayName ?? createdBy.username
           },
           {
             "type": "mrkdwn",
-            "text": `*${createdBy.displayName}*`
+            "text": `*${createdBy.displayName ?? createdBy.username}*`
           }
         ]
       },
