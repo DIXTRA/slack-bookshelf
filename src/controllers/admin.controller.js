@@ -6,6 +6,7 @@ const { topicExists } = require('../helpers/topics.helper');
 const { getCommandParams } = require('../helpers/commands.helper');
 const { validName } = require('../helpers/common.helper');
 const { addAppMetadata } = require('@slack/web-api');
+const { ActionType } = require('../enum/action_type');
 
 const debug = require('debug')('slack-bookshelf:server');
 
@@ -126,9 +127,18 @@ async function listTopicLinks(req, res) {
     });
 
     if (articleTopics.length) {
-      res.renderBlocks(
-        articlesViews.listTopicArticles(req, topicName, articleTopics)
-      );
+      const isAdmin = !!req?.user?.isAdmin;
+      const articlesView = articleTopics.map(({ id, article, createdBy }) =>{
+        let actions = isAdmin ? [
+          blocksViews.action(req.__('commons.remove'), id, ActionType.ListRemoveArticleTopic, "danger")
+        ]: [];
+        return articlesViews.renderArticle(req, article, actions, createdBy,);
+      });
+      res.renderBlocks( [
+        blocksViews.header(req.__('topics.listing_articles_title', { name: topicName })),
+        blocksViews.divider(),
+        ...articlesView.flat(),
+      ]);
     } else {
       throw new Error(req.__('errors.list_posts_error'));
     }

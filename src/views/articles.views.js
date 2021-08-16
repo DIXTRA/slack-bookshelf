@@ -13,30 +13,43 @@ function listTopicArticles(req, topicName, articlesTopic = [], actions = []) {
   ];
 }
 
-function renderArticle(req, article, actions = [], user) {
-  let userName = blocks.markdown(user?.displayName);
-  let userImage = blocks.image(
-    'https://api.slack.com/img/blocks/bkb_template_images/profile_3.png'
+function listArticles(req, articlesTopic = [], actions = []) {
+  const articlesView = articlesTopic.map((article) =>
+    renderArticle(req, article, actions)
   );
+  return [...articlesView.flat()];
+}
+
+function renderArticle(req, article, actions = [], user, textHeaderActions) {
+  let userName = blocks.markdown(user?.displayName);
+  let userImage = blocks.image(user?.profilePicture);
   let articleBody = blocks.markdown(
     `<${article.url}|${article.title}>\n${article.description}`
   );
   let articleImage = blocks.image(article.image);
+  let headerActions = textHeaderActions != null
+    ? [
+        blocks.section(
+          blocks.markdown(textHeaderActions)
+        ),
+      ]
+    : [];
   let articleActions = actions.length
     ? [
         blocks.actions(
           actions.map((action) =>
             blocks.action(
               blocks.plainText(action.text),
-              article.id,
-              action.actionId,
+              action.value ?? article.id,
+              action.action_id,
               action.style
             )
           )
         ),
       ]
     : [];
-
+  
+    
   return [
     ...(user
       ? [
@@ -48,9 +61,10 @@ function renderArticle(req, article, actions = [], user) {
         ]
       : []),
     blocks.sectionWithImage(articleBody, articleImage),
-    ...articleActions,
+    ...headerActions.flat(),
+    ...articleActions.flat(),
     blocks.divider(),
   ];
 }
 
-module.exports = { listTopicArticles };
+module.exports = { listTopicArticles, listArticles, renderArticle };
