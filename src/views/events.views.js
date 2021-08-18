@@ -23,6 +23,10 @@ function listApprovalRequests(approvalRequests = []) {
   blocks = approvalRequests.map((request) => {
     const { article, topic, createdBy } = request;
 
+    const userDisplayName = !!createdBy.displayName
+      ? createdBy.displayName
+      : createdBy.username
+
     return [
       {
         "type": "divider"
@@ -37,11 +41,11 @@ function listApprovalRequests(approvalRequests = []) {
           {
             "type": "image",
             "image_url": createdBy.profilePicture,
-            "alt_text": createdBy.displayName
+            "alt_text": userDisplayName,
           },
           {
             "type": "mrkdwn",
-            "text": `*${createdBy.displayName}*`
+            "text": `*${userDisplayName}*`
           }
         ]
       },
