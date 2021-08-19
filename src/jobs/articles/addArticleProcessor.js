@@ -89,7 +89,7 @@ module.exports = async function (job, done) {
       url: responseUrl,
       data: {
         replace_original: true,
-        blocks: [block(plainText(ex.message))],
+        blocks: [block(plainText(`Error: ${ex.message}`))],
       },
     });
 
