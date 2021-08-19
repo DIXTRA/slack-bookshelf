@@ -4,7 +4,7 @@ async function getTeamMiddleware(req, res, next) {
   const { team_id } = req.body;
 
   const team = await Team.findOne({
-    slackId: team_id,
+    where: { slackId: team_id }
   });
 
   if (team) {

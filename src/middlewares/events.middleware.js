@@ -6,10 +6,10 @@ async function getEventUserAndTeam(req, res, next) {
     return next();
   }
 
-  const { team_id, event: { user: user_id }, challenge } = req.body;
+  const { team_id, event: { user: user_id } } = req.body;
 
   const team = await Team.findOne({
-    slackId: team_id,
+    where: { slackId: team_id },
   });
 
   if (team) {
