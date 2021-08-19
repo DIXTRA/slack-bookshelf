@@ -21,19 +21,21 @@ function listArticles(req, articlesTopic = [], actions = []) {
 }
 
 function renderArticle(req, article, actions = [], user, textHeaderActions) {
-  let userName = blocks.markdown(user?.displayName);
-  let userImage = blocks.image(user?.profilePicture);
+  let userName = user?.displayName ?? user?.username;
+  const userViews = [
+    blocks.markdown(req.__('articles.submitted_by')),
+    blocks.markdown(userName),
+    blocks.image(user?.profilePicture),
+  ];
+
   let articleBody = blocks.markdown(
     `<${article.url}|${article.title}>\n${article.description}`
   );
   let articleImage = blocks.image(article.image);
-  let headerActions = textHeaderActions != null
-    ? [
-        blocks.section(
-          blocks.markdown(textHeaderActions)
-        ),
-      ]
-    : [];
+  let headerActions =
+    textHeaderActions != null
+      ? [blocks.section(blocks.markdown(textHeaderActions))]
+      : [];
   let articleActions = actions.length
     ? [
         blocks.actions(
@@ -48,21 +50,12 @@ function renderArticle(req, article, actions = [], user, textHeaderActions) {
         ),
       ]
     : [];
-  
-    
+
   return [
-    ...(user
-      ? [
-          blocks.context([
-            blocks.markdown(req.__('articles.submitted_by')),
-            userImage,
-            userName,
-          ]),
-        ]
-      : []),
     blocks.sectionWithImage(articleBody, articleImage),
     ...headerActions.flat(),
     ...articleActions.flat(),
+    ...(user && userName ? [blocks.context(userViews)] : []),
     blocks.divider(),
   ];
 }

@@ -13,12 +13,12 @@
 	"errors": {
 		"admin_only_error": "Debes ser administrador para utilizar este comando",
 		"number_of_params_error": "Número incorrecto de parámetros",
-		"topic_not_found_error": "No se ha encontrado el tópico {{name}}",
-		"topic_already_created_error": "El tópico '{{name}}' ya existe",
+		"topic_not_found_error": "No se ha encontrado el tópico \"{{name}}\"",
+		"topic_already_created_error": "El tópico \"{{name}}\" ya existe",
 		"get_post_info_error": "Error al obtener información sobre el post",
 		"create_post_error": "Error al crear el post en la base de datos",
-		"create_topic_error": "Error al crear el tópico '{{name}}'",
-		"invalid_topic_name_error": "Nombre de tópico '{{name}}' inválido",
+		"create_topic_error": "Error al crear el tópico \"{{name}}\"",
+		"invalid_topic_name_error": "Nombre de tópico \"{{name}}\" inválido",
 		"list_posts_error": "No se logró obtener la lista de artículos",
 		"no_topics": "No se encontraron tópicos",
 		"invalid_user_error": "Usuario inválido",
@@ -34,11 +34,11 @@
 		"remove_article_success": "Artículo eliminado exitosamente"
 	},
 	"topics": {
-		"create_success": "Se ha creado el tópico '{{name}}' exitosamente!",
-		"empty_message": "El tópico '{{name}}' no contiene artículos",
-		"listing_articles_title": "Artículos para el tópico '{{name}}':"
+		"create_success": "Se ha creado el tópico \"{{name}}\" exitosamente!",
+		"empty_message": "El tópico \"{{name}}\" no contiene artículos",
+		"listing_articles_title": "Artículos para el tópico {{name}}"
 	},
-	"commons":{
+	"commons": {
 		"remove": "Remover",
 		"delete": "Eliminar",
 		"cancel": "Cancelar"
