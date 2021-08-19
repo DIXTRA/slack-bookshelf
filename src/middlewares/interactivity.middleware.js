@@ -5,7 +5,7 @@ async function getInteractiveEventUserAndTeam(req, res, next) {
   const { user: { id: userId, team_id: teamId } } = JSON.parse(req.body.payload);
 
   const team = await Team.findOne({
-    slackId: teamId,
+    where: { slackId: teamId },
   });
 
   if (team) {
