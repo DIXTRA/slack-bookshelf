@@ -13,9 +13,9 @@
 	"errors": {
 		"admin_only_error": "Debes ser administrador para utilizar este comando",
 		"number_of_params_error": "Número incorrecto de parámetros",
-		"topic_not_found_error": "No se ha encontrado el tópico \"{{name}}\"",
+  	"topic_not_found_error": "No se ha encontrado el tópico \"{{name}}\"",
 		"topic_already_created_error": "El tópico \"{{name}}\" ya existe",
-		"get_post_info_error": "Error al obtener información sobre el post",
+		"get_post_info_error": "Error al obtener información sobre el articulo",
 		"create_post_error": "Error al crear el post en la base de datos",
 		"create_topic_error": "Error al crear el tópico \"{{name}}\"",
 		"invalid_topic_name_error": "Nombre de tópico \"{{name}}\" inválido",
