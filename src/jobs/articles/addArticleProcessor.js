@@ -19,15 +19,13 @@ module.exports = async function (job, done) {
   try {
     const articleInfo = await getInfo(url);
 
-    if (!articleInfo) throw new Error(i18n.__({ phrase: 'errors.get_post_info_error', locale }));
-    
+    if (!articleInfo || !articleInfo.name || !articleInfo.description) {
+      throw new Error(i18n.__({ phrase: 'errors.get_post_info_error', locale }));
+    }
+
     const { name, description, image, authorName, keywords } = articleInfo;
 
     let article = await Article.findOne({ where: { url: url } });
-
-    if (!name || !description) {
-      throw new Error(i18n.__({ phrase: 'errors.get_post_info_error', locale }));
-    }
 
     if (!article) {
       article = await Article.create({
