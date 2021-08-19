@@ -4,6 +4,7 @@ const { ArticleTopic, Article } = require('../models');
 const articlesViews = require('../views/articles.views');
 const blocks = require('../views/blocks.views');
 const axios = require('axios');
+const events = require('./events.controller.js');
 
 async function removeArticleTopic(articleTopicId) {
   try {
@@ -206,10 +207,10 @@ async function runInteractive(req, res) {
         .then((results) => {
           results.forEach(({ status, value }) => {
             if (status === 'fulfilled') {
-              res.status(200);
+              events.runEvent(req,res);
               // TODO: Add home reload  
             } else { // error performing the action
-              res.status(500);
+              res.sendStatus(500);
             }
           });
         });

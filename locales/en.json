@@ -13,12 +13,12 @@
 	"errors": {
 		"admin_only_error": "Only admins can run this command",
 		"number_of_params_error": "Wrong number of params",
-		"topic_not_found_error": "Topic '{{name}}' not found",
-		"topic_already_created_error": "Topic '{{name}}' is already created",
+		"topic_not_found_error": "Topic \"{{name}}\" not found",
+		"topic_already_created_error": "Topic \"{{name}}\" is already created",
 		"get_post_info_error": "Error fetching the post info",
 		"create_post_error": "Error creating post in database",
-		"create_topic_error": "Error creating topic '{{name}}'",
-		"invalid_topic_name_error": "Invalid topic name '{{name}}'",
+		"create_topic_error": "Error creating topic \"{{name}}\"",
+		"invalid_topic_name_error": "Invalid topic name \"{{name}}\"",
 		"list_posts_error": "Couldn't get article list",
 		"no_topics": "No topics were found",
 		"invalid_user_error": "Invalid user",
@@ -36,11 +36,11 @@
 		"remove_article_success": "Article removed successfully"
 	},
 	"topics": {
-		"create_success": "Topic '{{name}}' created successfully!",
-		"empty_message": "Topic '{{name}}' is empty",
-		"listing_articles_title": "Articles for topic '{{name}}':"
+		"create_success": "Topic \"{{name}}\" created successfully!",
+		"empty_message": "Topic \"{{name}}\" is empty",
+		"listing_articles_title": "Articles for topic \"{{name}}\""
 	},
-	"commons":{
+	"commons": {
 		"remove": "Remove",
 		"delete": "Delete",
 		"cancel": "Cancel"

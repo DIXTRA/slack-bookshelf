@@ -50,7 +50,7 @@ async function runEvent (req, res) {
     },
   });
 
-  res.status(200);
+  res.sendStatus(200);
 }
 
 module.exports = {
