@@ -25,13 +25,17 @@ module.exports = async function (job, done) {
 
     let article = await Article.findOne({ where: { url: url } });
 
+    if (!name || !description) {
+      throw new Error(i18n.__({ phrase: 'errors.get_post_info_error', locale }));
+    }
+
     if (!article) {
       article = await Article.create({
         title: name,
         url: url,
         description,
         image: image[0],
-        author: authorName,
+        author: authorName || "A Medium User",
         keywords: (keywords || []).join(','),
       });
     }
@@ -81,6 +85,15 @@ module.exports = async function (job, done) {
     done();
   } catch (ex) {
     console.log(ex);
+
+    await axios({
+      method: 'post',
+      url: responseUrl,
+      data: {
+        replace_original: true,
+        blocks: [block(plainText(ex.message))],
+      },
+    });
 
     throw ex;
   }
